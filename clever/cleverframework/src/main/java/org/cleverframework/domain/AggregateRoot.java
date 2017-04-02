@@ -1,15 +1,11 @@
 package org.cleverframework.domain;
 
-import org.cleverframework.eventhandings.EventHandlerInvoker;
-import org.cleverframework.eventhandings.EventHandlerProvider;
+import org.cleverframework.eventhandings.*;
 import org.cleverframework.events.Event;
+import org.cleverframework.messages.MessageProducer;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 
 public abstract class AggregateRoot implements Serializable {
@@ -17,6 +13,8 @@ public abstract class AggregateRoot implements Serializable {
     private static final long serialVersionUID = -4697010448972546861L;
 
     private EventHandlerProvider eventHandlerProvider;
+
+    private MessageProducer messageProducer;
 
     private final String aggregateRootId;
 
@@ -26,12 +24,10 @@ public abstract class AggregateRoot implements Serializable {
 
     public AggregateRoot(String aggregateRootId) {
         this.aggregateRootId = aggregateRootId;
-
         unCommitEvents = new LinkedList<Event>();
     }
 
     public void setVersion(int version) {
-
         this.version = version;
     }
 
@@ -47,12 +43,15 @@ public abstract class AggregateRoot implements Serializable {
 
         List<Event> events = new ArrayList<Event>();
 
-        return null;
+        for (Event event : unCommitEvents)
+            events.add(event);
+
+        return events;
     }
 
     public void applyEvent(Event event) {
-
-        handleEvent(event);
+        if (event instanceof DomainEvent)
+            handleEvent(event);
         appendUnCommitEvents(event);
     }
 
@@ -65,7 +64,6 @@ public abstract class AggregateRoot implements Serializable {
     }
 
     public void applyEvents(List<Event> events) {
-
         for (Event event : events) {
             applyEvent(event);
         }

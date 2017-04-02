@@ -15,7 +15,6 @@ public class CommandHandlerResult {
 
     public CommandHandlerResult(String identityId, Boolean succeed, String message) {
         this(identityId, succeed);
-
         this.message = message;
     }
 }
