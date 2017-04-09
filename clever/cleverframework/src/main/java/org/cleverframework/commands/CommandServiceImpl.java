@@ -4,11 +4,15 @@ package org.cleverframework.commands;
 import org.cleverframework.messages.MessageProducer;
 import org.cleverframework.messages.MessageWrapper;
 
+import javax.annotation.Resource;
+
+@Resource
 public class CommandServiceImpl implements CommandService {
 
     private MessageProducer producer;
 
     public <T extends Command> CommandExecuteResult send(T command) {
+
         return null;
     }
 

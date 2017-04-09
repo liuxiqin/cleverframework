@@ -8,9 +8,9 @@ import java.lang.reflect.Method;
  */
 public class CommandHandlerInvokerFactory {
 
-    public static CommandHandlerInvoker create(Method method, String commandName, CommandHandler commandHandler) {
+    public static CommandHandlerInvoker create(String commandName, CommandHandler commandHandler) {
 
-        return new CommandHandlerInvoker(method, commandName, commandHandler);
+        return new CommandHandlerInvoker(commandName, commandHandler);
 
     }
 }
