@@ -1,11 +1,11 @@
 package org.cleverframework.Infrastructure.eventstores;
 
+import com.google.common.collect.Lists;
 import org.cleverframework.Infrastructure.serializes.BinarySerializer;
 import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
 import org.cleverframework.domain.AggregateRoot;
 import org.cleverframework.events.Event;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -27,5 +27,31 @@ public class EventStreamFactory {
         eventStream.setEventBytes(binarySerializer.serialize(aggregateRoot.getUnCommitEvents()));
 
         return eventStream;
+    }
+
+    public static EventStream create(List<EventStreamRecord> records) {
+
+        if (records == null || records.size() == 0)
+            return null;
+
+        try {
+            EventStream eventStream = new EventStream();
+
+            List<Event> events = Lists.newArrayList();
+
+            for (EventStreamRecord record : records) {
+                eventStream.setAggregateRootId(record.getAggregateRootId());
+                eventStream.setVersion(record.getVersion());
+
+                List<Event> recordEvents = binarySerializer.deSerialize(record.getEventBytes());
+
+                events.addAll(recordEvents);
+            }
+            eventStream.setEvents(events);
+
+            return eventStream;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

@@ -8,7 +8,8 @@ import java.io.Serializable;
 import java.util.*;
 
 
-public abstract class AggregateRoot implements Serializable {
+public  class
+AggregateRoot implements Serializable {
 
     private static final long serialVersionUID = -4697010448972546861L;
 

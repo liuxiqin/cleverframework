@@ -11,7 +11,7 @@ public interface CommandContext {
 
     Map<String, AggregateRoot> getAggregateRoots();
 
-    void add(AggregateRoot aggregateRoot);
+    <T extends AggregateRoot> void add(AggregateRoot aggregateRoot);
 
     <T extends AggregateRoot> T get(String aggregateRootId);
 }

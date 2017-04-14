@@ -3,9 +3,18 @@ package org.cleverframework.samples;
 import org.cleverframework.Infrastructure.serializes.BinarySerializer;
 import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
 import org.cleverframework.commands.Command;
+import org.cleverframework.domain.AggregateRoot;
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisSerializer;
+import org.objenesis.ObjenesisStd;
+import org.objenesis.instantiator.ObjectInstantiator;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
 import java.util.Date;
 import java.util.UUID;
+
 
 
 /**
@@ -43,6 +52,15 @@ public class SendSampleCommand extends Command {
         Command seredCommand = binarySerializer.deSerialize(serBytes);
 
         System.out.println(seredCommand);
+
+        Objenesis objenesis = new ObjenesisSerializer();
+
+        ObjectInstantiator objectInstantiator=objenesis.getInstantiatorOf(AggregateRoot.class);
+
+        AggregateRoot aggregateRoot= (AggregateRoot) objectInstantiator.newInstance();
+
+        System.out.println(aggregateRoot);
+
 
     }
 }

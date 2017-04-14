@@ -7,6 +7,15 @@ import java.util.List;
  */
 public class MysqlEventStoreImpl implements EventStore {
 
+    public MysqlEventStoreImpl() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (Exception e) {
+
+        }
+
+    }
+
     public void AppendEventsToStream(EventStream eventStream) {
 
 
@@ -17,6 +26,7 @@ public class MysqlEventStoreImpl implements EventStore {
 
         return null;
     }
+
     //获取某个版本后面所有的事件
     public EventStream get(String aggregateRootId, int version) {
 

@@ -9,6 +9,7 @@ public interface JsonSerializer {
 
     <T> String serialize(T object) throws Exception;
 
-    <T> T deSerialize(String json) throws Exception;
+    <T> T deSerialize(String json, Class<?> beanClass);
 
+    <T> T deSerializes(String json, Class<?> beanClass);
 }

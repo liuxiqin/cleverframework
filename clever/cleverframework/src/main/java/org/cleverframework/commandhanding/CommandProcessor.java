@@ -1,8 +1,7 @@
 package org.cleverframework.commandhanding;
 
 import org.cleverframework.Infrastructure.Repository.Repository;
-import org.cleverframework.Infrastructure.eventstores.EventStream;
-import org.cleverframework.Infrastructure.eventstores.EventStreamFactory;
+import org.cleverframework.Infrastructure.eventstores.*;
 import org.cleverframework.commands.Command;
 import org.cleverframework.commands.CommandContext;
 import org.cleverframework.commands.CommandContextImpl;
@@ -18,8 +17,7 @@ import java.util.Map;
  */
 public class CommandProcessor {
 
-    @Resource
-    private Repository repository;
+    private EventStore eventStore = new MysqlEventStoreImpl();
 
     public <T extends Command> void process(CommandHandlerInvoker invoker, T command) throws Exception {
 
@@ -30,13 +28,13 @@ public class CommandProcessor {
         Map<String, AggregateRoot> aggregateRoots = commandContext.getAggregateRoots();
 
         if (aggregateRoots.size() == 0)
-            ;
+            throw new Exception("the changed aggregateRoot  size can not be zero.");
 
         if (aggregateRoots.size() > 1)
-            ;
+            throw new Exception("the changed aggregateRoot just only one.");
 
         //one CommandHandle just  change only one AggregateRoot
-        AggregateRoot changedAggregateRoot = getFirst(aggregateRoots);
+        AggregateRoot changedAggregateRoot = getChangedAggregateRoot(aggregateRoots);
 
         //get the changedUnCommitEvents
 
@@ -44,7 +42,7 @@ public class CommandProcessor {
 
         //change the event to EventStream to save eventstore
 
-        EventStream eventStream = EventStreamFactory.create(changedAggregateRoot , command.getId());
+        EventStreamRecord eventStreamRecord = EventStreamFactory.create(changedAggregateRoot, command.getId());
 
 
         //create the AggregateRoot snapshot buy step 3
@@ -57,7 +55,7 @@ public class CommandProcessor {
 
     }
 
-    private AggregateRoot getFirst(Map<String, AggregateRoot> aggregateRoots) {
+    private AggregateRoot getChangedAggregateRoot(Map<String, AggregateRoot> aggregateRoots) {
 
         return aggregateRoots.values().iterator().next();
     }
