@@ -1,27 +1,32 @@
 package org.cleverframework.domain;
 
+import org.cleverframework.Context.ApplicationContext;
 import org.cleverframework.eventhandings.*;
 import org.cleverframework.events.Event;
 import org.cleverframework.messages.MessageProducer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.util.*;
 
 
-public  class
-AggregateRoot implements Serializable {
+public class AggregateRoot implements Serializable {
 
     private static final long serialVersionUID = -4697010448972546861L;
 
-    private EventHandlerProvider eventHandlerProvider;
+    protected transient final Logger logger = LoggerFactory.getLogger(AggregateRoot.class);
 
-    private MessageProducer messageProducer;
+    private transient EventHandlerProvider eventHandlerProvider;
 
-    private final String aggregateRootId;
+    private String aggregateRootId;
 
-    private int version;
+    private int version = 0;
 
-    private Queue<Event> unCommitEvents;
+    private transient Queue<Event> unCommitEvents;
+
+    public AggregateRoot() {
+    }
 
     public AggregateRoot(String aggregateRootId) {
         this.aggregateRootId = aggregateRootId;
@@ -72,17 +77,16 @@ AggregateRoot implements Serializable {
 
     public void handleEvent(Event event) {
 
-        if (eventHandlerProvider == null) {
-            eventHandlerProvider = new EventHandlerProvider();
-        }
+        if (eventHandlerProvider == null)
+            eventHandlerProvider = ApplicationContext.getBean(EventHandlerProvider.class);
 
         try {
-            EventHandlerInvoker handler = eventHandlerProvider.getEventInvoker(event.getClass().getName());
+            EventHandler handler = eventHandlerProvider.getEventHandler(event.getClass().getName());
             if (handler == null)
                 return;
-            handler.invoke(this, event);
+            handler.handle(event);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(" handleEvent error:->{}", event);
         }
     }
 

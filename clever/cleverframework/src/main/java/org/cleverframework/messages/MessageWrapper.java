@@ -5,13 +5,15 @@ import java.util.Date;
 
 public class MessageWrapper implements Serializable {
 
+    private static final long serialVersionUID = 8317408161383032451L;
+
     private String messageName;
 
     private String messageId;
 
     private String messageBody;
 
-    private Date timeStamp;
+    private long timeStamp;
 
     private long bodyLength;
 
@@ -43,11 +45,11 @@ public class MessageWrapper implements Serializable {
         this.messageBody = messageBody;
     }
 
-    public Date getTimeStamp() {
+    public long getTimeStamp() {
         return timeStamp;
     }
 
-    public void setTimeStamp(Date timeStamp) {
+    public void setTimeStamp(long timeStamp) {
         this.timeStamp = timeStamp;
     }
 
@@ -77,7 +79,7 @@ public class MessageWrapper implements Serializable {
 
     @Override
     public String toString() {
-        return "Messagewrapper{" +
+        return "MessageWrapper{" +
                 "messageName='" + messageName + '\'' +
                 ", messageId='" + messageId + '\'' +
                 ", messageBody='" + messageBody + '\'' +

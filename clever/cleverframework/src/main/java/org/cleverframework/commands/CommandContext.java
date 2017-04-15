@@ -13,5 +13,5 @@ public interface CommandContext {
 
     <T extends AggregateRoot> void add(AggregateRoot aggregateRoot);
 
-    <T extends AggregateRoot> T get(String aggregateRootId);
+    <T extends AggregateRoot> T get(String aggregateRootId) throws  Exception;
 }

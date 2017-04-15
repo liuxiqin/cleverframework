@@ -55,7 +55,7 @@ public class SendSampleCommand extends Command {
 
         Objenesis objenesis = new ObjenesisSerializer();
 
-        ObjectInstantiator objectInstantiator=objenesis.getInstantiatorOf(AggregateRoot.class);
+        ObjectInstantiator objectInstantiator = objenesis.getInstantiatorOf(AggregateRoot.class);
 
         AggregateRoot aggregateRoot= (AggregateRoot) objectInstantiator.newInstance();
 

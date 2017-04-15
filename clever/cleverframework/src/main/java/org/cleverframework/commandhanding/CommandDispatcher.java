@@ -10,15 +10,15 @@ import javax.annotation.Resource;
 public class CommandDispatcher {
 
     @Resource
-    private CommandHandlerContainer handlerContainer;
+    private CommandHandlerProvider commandHandlerProvider;
 
     @Resource
-    private CommandProcessor commandProcessor;
+    private CommandProcessor commandProcessor = new CommandProcessorProxy(new CommandProcessorImpl());
 
     public <T extends Command> void dispatch(T command) throws Exception {
 
-        CommandHandlerInvoker commandHandlerInvoker = handlerContainer.get(command);
+        CommandHandler commandHandler = commandHandlerProvider.getHandler(command.getClass().getName());
 
-        commandProcessor.process(commandHandlerInvoker, command);
+        commandProcessor.process(commandHandler, command);
     }
 }

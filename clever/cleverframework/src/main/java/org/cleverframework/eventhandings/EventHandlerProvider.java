@@ -10,17 +10,17 @@ import java.util.Map;
  */
 public class EventHandlerProvider {
 
-    private Map<String, EventHandlerInvoker> eventInvokers;
+    private Map<String, EventHandler<?>> eventInvokers;
 
     public EventHandlerProvider() {
 
-        eventInvokers = new HashMap<String, EventHandlerInvoker>();
+        eventInvokers = new HashMap<String, EventHandler<?>>();
     }
 
-    public EventHandlerInvoker getEventInvoker(String eventName) throws NotFoundException {
+    public EventHandler<?> getEventHandler(String eventName) throws NotFoundException {
         if (!eventInvokers.containsKey(eventName))
             throw new NotFoundException("can not find this EventHandlerInvoker with the eventName->" + eventName);
-        
+
         return eventInvokers.get(eventName);
     }
 

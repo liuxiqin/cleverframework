@@ -16,7 +16,7 @@ public class MysqlEventStoreImpl implements EventStore {
 
     }
 
-    public void AppendEventsToStream(EventStream eventStream) {
+    public void appendEventsToStream(EventStreamRecord eventStream) {
 
 
     }

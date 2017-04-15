@@ -1,5 +1,7 @@
 package org.cleverframework.domain;
 
+import org.cleverframework.Infrastructure.serializes.BinarySerializer;
+import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 import org.objenesis.instantiator.ObjectInstantiator;
@@ -13,9 +15,22 @@ public class AggregateRootFactory {
 
     public static ObjectInstantiator objectInstantiator = objenesis.getInstantiatorOf(AggregateRoot.class);
 
-    public static AggregateRoot createNew() {
+    public static BinarySerializer binarySerializer = new BinarySerializerImpl();
 
-        return (AggregateRoot) objectInstantiator.newInstance();
+    public static <T extends AggregateRoot> T createNew() {
 
+        return (T) objectInstantiator.newInstance();
+    }
+
+    public static <T extends AggregateRoot> T create() {
+        return (T) new AggregateRoot();
+    }
+
+    public static <T extends AggregateRoot> T createNew(byte[] aggregateRootBytes) throws Exception {
+
+        if (aggregateRootBytes == null || aggregateRootBytes.length == 0)
+            return null;
+
+        return binarySerializer.deSerialize(aggregateRootBytes);
     }
 }

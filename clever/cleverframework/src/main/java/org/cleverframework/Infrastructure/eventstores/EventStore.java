@@ -5,7 +5,7 @@ package org.cleverframework.Infrastructure.eventstores;
  */
 public interface EventStore {
 
-    void AppendEventsToStream(EventStream eventStream);
+    void appendEventsToStream(EventStreamRecord eventStream);
 
     EventStream get(String aggregateRootId, int version) ;
 }

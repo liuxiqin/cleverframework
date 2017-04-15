@@ -19,7 +19,6 @@ public class EventSourcingImpl implements EventSourcing {
     public <T extends AggregateRoot> T get(String aggregateRootId) {
 
 
-
         return null;
     }
 }

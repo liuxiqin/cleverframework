@@ -5,7 +5,9 @@ package org.cleverframework.commands;
  */
 public interface CommandService {
 
-    <T extends Command> CommandExecuteResult send(T command);
+    <T extends Command> CommandExecuteResult sendAndWait(T command);
 
-    <T extends Command> void sendOneWay(T command);
+    <T extends Command> void sendAsync(T command);
+
+
 }

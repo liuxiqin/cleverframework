@@ -7,6 +7,7 @@ import java.lang.reflect.ParameterizedType;
  */
 public class JacksonSerializerImpl implements JsonSerializer {
 
+
     public <T> String serialize(T object) throws Exception {
         return null;
     }
