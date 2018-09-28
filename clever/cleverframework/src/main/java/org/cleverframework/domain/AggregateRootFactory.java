@@ -1,7 +1,7 @@
 package org.cleverframework.domain;
 
-import org.cleverframework.Infrastructure.serializes.BinarySerializer;
-import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
+import org.cleverframework.infrastructure.serializes.BinarySerializer;
+import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
 import org.objenesis.Objenesis;
 import org.objenesis.ObjenesisStd;
 import org.objenesis.instantiator.ObjectInstantiator;

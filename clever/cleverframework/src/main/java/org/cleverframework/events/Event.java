@@ -2,27 +2,19 @@ package org.cleverframework.events;
 
 import org.cleverframework.messages.Message;
 
+/**
+ * 事件抽象类
+ */
 public abstract class Event extends Message {
 
-	private String eventId;
+    private int version;
 
-	public Event(String messageId) {
-		super(messageId);		
-        this.eventId=messageId;
-	}
+    public void setVersion(int version) {
+        this.version = version;
+    }
 
-	private int version;
-	
-	public String getEventId(){
-		return this.eventId;
-	}
-
-	public void setVersion(int version) {
-		this.version = version;
-	}
-
-	public int getVersion() {
-		return this.version;
-	}
+    public int getVersion() {
+        return this.version;
+    }
 
 }

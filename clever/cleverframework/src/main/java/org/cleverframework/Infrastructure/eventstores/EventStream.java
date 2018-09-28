@@ -1,19 +1,27 @@
-package org.cleverframework.Infrastructure.eventstores;
+package org.cleverframework.infrastructure.eventstores;
 
 import org.cleverframework.events.Event;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * 事件流
  */
-public class EventStream{
+public class EventStream {
 
+    /**
+     * 版本号
+     */
     private int version;
 
+    /**
+     * 事件
+     */
     private List<Event> events;
 
+    /**
+     * 聚合根ID
+     */
     private String aggregateRootId;
 
     public int getVersion() {

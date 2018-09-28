@@ -2,18 +2,18 @@ package org.cleverframework.messages;
 
 import com.rabbitmq.client.*;
 import com.rabbitmq.client.Consumer;
-import org.cleverframework.Infrastructure.serializes.BinarySerializer;
-import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
+import org.cleverframework.infrastructure.serializes.BinarySerializer;
+import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
+import org.cleverframework.messages.channels.MessageChannel;
 
 import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ExecutorService;
-import java.util.function.*;
 
 /**
- * Created by cass02 on 2017/4/15.
+ * TOPIC消息消费实现
  */
-public class TopicMessageConsumerImpl implements MessageConsumer, Runnable {
+public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
 
     private String topic;
 
@@ -25,14 +25,17 @@ public class TopicMessageConsumerImpl implements MessageConsumer, Runnable {
 
     private BinarySerializer binarySerializer = new BinarySerializerImpl();
 
+    private java.util.function.Consumer<MessageContext> messageAction;
+
     private Connection connection;
 
     private Channel channel;
 
-    public TopicMessageConsumerImpl(String topic, String routingKey, ExecutorService executorService) {
+    public TopicMessageConsumerImpl(String topic, String routingKey, ExecutorService executorService, java.util.function.Consumer<MessageContext> messageAction) {
         this.topic = topic;
         this.routingKey = routingKey;
         this.executorService = executorService;
+        this.messageAction = messageAction;
     }
 
 
@@ -74,9 +77,13 @@ public class TopicMessageConsumerImpl implements MessageConsumer, Runnable {
                 public void handleDelivery(String consumerTag, Envelope envelope,
                                            AMQP.BasicProperties properties, byte[] body) {
                     try {
-                        Thread.sleep(1000);
+
+                        MessageContext messageContext = buildMessageContext(channel, envelope.getDeliveryTag(), body);
+
+                        messageAction.accept(messageContext);
 
                         channel.basicAck(envelope.getDeliveryTag(), true);
+
                     } catch (Exception e) {
                         try {
                             channel.basicAck(envelope.getDeliveryTag(), false);
@@ -112,5 +119,14 @@ public class TopicMessageConsumerImpl implements MessageConsumer, Runnable {
 
     public String getName() {
         return this.topic + "_" + this.routingKey;
+    }
+
+    private MessageContext buildMessageContext(Channel channel, long deliveryTag, byte[] messageBody) throws Exception {
+
+        MessageWrapper messageWrapper = binarySerializer.deSerialize(messageBody);
+
+        MessageChannel messageChannel = new MessageChannel(channel);
+
+        return new MessageContext(messageChannel, deliveryTag, messageWrapper);
     }
 }

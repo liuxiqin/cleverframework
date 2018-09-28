@@ -1,9 +1,8 @@
 package org.cleverframework.domain;
 
-import org.cleverframework.Context.ApplicationContext;
+import org.cleverframework.context.ApplicationContext;
 import org.cleverframework.eventhandings.*;
 import org.cleverframework.events.Event;
-import org.cleverframework.messages.MessageProducer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,9 +23,6 @@ public class AggregateRoot implements Serializable {
     private int version = 0;
 
     private transient Queue<Event> unCommitEvents;
-
-    public AggregateRoot() {
-    }
 
     public AggregateRoot(String aggregateRootId) {
         this.aggregateRootId = aggregateRootId;

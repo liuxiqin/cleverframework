@@ -1,4 +1,4 @@
-package org.cleverframework.Infrastructure.eventsourcings;
+package org.cleverframework.infrastructure.eventsourcings;
 
 import org.cleverframework.domain.AggregateRoot;
 

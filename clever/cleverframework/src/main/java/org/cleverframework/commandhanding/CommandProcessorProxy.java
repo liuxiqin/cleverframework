@@ -1,9 +1,12 @@
 package org.cleverframework.commandhanding;
 
 import org.cleverframework.commands.Command;
+import org.cleverframework.commands.CommandProcessorContext;
 
 /**
- * Created by cass02 on 2017/4/15.
+ * 命令处理器代理类
+ *
+ * @author xiqin.liu
  */
 public class CommandProcessorProxy implements CommandProcessor {
 
@@ -13,7 +16,8 @@ public class CommandProcessorProxy implements CommandProcessor {
         this.commandProcessor = commandProcessor;
     }
 
-    public <T extends Command> void process(CommandHandlerInvoker invoker, T command) throws Exception {
-        commandProcessor.process(invoker, command);
+    @Override
+    public <T extends Command> void process(CommandProcessorContext context) throws Exception {
+        commandProcessor.process(context);
     }
 }

@@ -1,4 +1,6 @@
-package org.cleverframework.Infrastructure.serializes;
+package org.cleverframework.infrastructure.serializes;
+
+import org.cleverframework.infrastructure.exceptions.serializer.BinarySerializerException;
 
 import java.io.*;
 
@@ -8,18 +10,26 @@ import java.io.*;
 public class BinarySerializerImpl implements BinarySerializer {
 
     public <T> byte[] serialize(T object) throws IOException {
-        if (object == null)
+
+        if (object == null) {
             return null;
+        }
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        try {
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(baos);
 
-        objectOutputStream.writeObject(object);
+            objectOutputStream.writeObject(object);
 
-        byte[] bytes = baos.toByteArray();
+            byte[] bytes = baos.toByteArray();
 
-        return bytes;
+            return bytes;
+
+        } catch (Exception e) {
+
+            throw new BinarySerializerException(e);
+        }
     }
 
     public <T> T deSerialize(byte[] bytes) throws Exception {
@@ -33,6 +43,4 @@ public class BinarySerializerImpl implements BinarySerializer {
 
         return (T) objectInputStream.readObject();
     }
-
-
 }

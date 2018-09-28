@@ -5,7 +5,7 @@ package org.cleverframework.messages.channels;
  */
 public class RabbitMQCommunicateConnection implements CommunicateConnection {
 
-    public RabbitMQCommunicateConnection(String cconnectionId){
+    public RabbitMQCommunicateConnection(String cconnectionId) {
 
     }
 

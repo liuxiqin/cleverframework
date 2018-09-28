@@ -1,4 +1,4 @@
-package org.cleverframework.Infrastructure.snapshots;
+package org.cleverframework.infrastructure.snapshots;
 
 import java.io.Serializable;
 import java.util.Date;

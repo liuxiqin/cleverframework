@@ -1,4 +1,4 @@
-package org.cleverframework.Context;
+package org.cleverframework.context;
 
 import java.util.HashMap;
 import java.util.Map;

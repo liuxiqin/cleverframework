@@ -1,17 +1,17 @@
 package org.cleverframework.commands;
 
-import org.cleverframework.Infrastructure.Repository.AggregateRepositoryProxy;
-import org.cleverframework.Infrastructure.Repository.EventSourcingAggregateRepository;
-import org.cleverframework.Infrastructure.Repository.NoEventSourcingAggregateRepository;
-import org.cleverframework.Infrastructure.Repository.AggregateRepository;
+import org.cleverframework.infrastructure.repository.AggregateRepositoryProxy;
+import org.cleverframework.infrastructure.repository.EventSourcingAggregateRepository;
+import org.cleverframework.infrastructure.repository.AggregateRepository;
 import org.cleverframework.domain.AggregateRoot;
 
-import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * Command 上下文处理(获取聚合根, 添加聚合根)
+ *
+ * @author xiqin.liu
  */
 public class CommandContextImpl implements CommandContext {
 
@@ -23,10 +23,11 @@ public class CommandContextImpl implements CommandContext {
     }
 
     public void add(AggregateRoot aggregateRoot) {
+
         aggregateRoots.put(aggregateRoot.getId(), aggregateRoot);
     }
 
-    public <T extends AggregateRoot> T get(String aggregateRootId) throws Exception {
+    public <T extends AggregateRoot> T get(String aggregateRootId) {
 
         AggregateRepository<T> repository = new AggregateRepositoryProxy<T>(new EventSourcingAggregateRepository<T>());
 

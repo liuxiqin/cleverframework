@@ -2,9 +2,12 @@ package org.cleverframework.domain;
 
 import org.cleverframework.events.Event;
 
-public abstract class  DomainEvent extends Event {
+public abstract class DomainEvent extends Event {
 
-	public DomainEvent(String messageId) {
-		super(messageId);
-	}  
+    private String aggregateRootId;
+
+    public DomainEvent(String aggregateRootId) {
+
+        this.aggregateRootId = aggregateRootId;
+    }
 }
