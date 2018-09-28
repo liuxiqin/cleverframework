@@ -7,9 +7,9 @@ import org.cleverframework.domain.AggregateRoot;
  */
 public class NoEventSourcingAggregateRepository<T extends AggregateRoot> implements AggregateRepository<T> {
 
+    private GenericDao<T, String> genericDao = new GenericDaoImpl<T, String>();
+
     public T get(String aggregateRootId) throws Exception {
-        return null;
+        return genericDao.get(aggregateRootId);
     }
-
-
 }
