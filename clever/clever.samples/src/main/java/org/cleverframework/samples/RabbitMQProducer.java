@@ -24,7 +24,7 @@ public class RabbitMQProducer {
 
     private static void sendMessage() throws IOException, TimeoutException, InterruptedException {
 
-        ConnectionFactory factory = new ConnectionFactory();
+        ConnectionFactory factory = new ActiveConnectionFactory();
 
         factory.setHost("localhost");
         factory.setUsername("admin");
@@ -32,6 +32,7 @@ public class RabbitMQProducer {
         factory.setPort(5672);
         //创建一个新的连接
         Connection connection = factory.newConnection();
+
         //创建一个通道
         Channel channel = connection.createChannel();
         //  声明一个队列        channel.queueDeclare(QUEUE_NAME, false, false, false, null);
