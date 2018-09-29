@@ -1,15 +1,6 @@
-package org.cleverframework.Infrastructure.Repository;
+package org.cleverframework.infrastructure.repository;
 
-import org.cleverframework.Infrastructure.eventsourcings.AggregateRootMemoryCache;
-import org.cleverframework.Infrastructure.eventsourcings.AggregateRootMemoryCacheImpl;
-import org.cleverframework.Infrastructure.eventstores.EventStore;
-import org.cleverframework.Infrastructure.eventstores.EventStream;
-import org.cleverframework.Infrastructure.eventstores.MysqlEventStoreImpl;
-import org.cleverframework.Infrastructure.snapshots.MysqlSnapshotStorage;
-import org.cleverframework.Infrastructure.snapshots.Snapshot;
-import org.cleverframework.Infrastructure.snapshots.SnapshotStorage;
 import org.cleverframework.domain.AggregateRoot;
-import org.cleverframework.domain.AggregateRootFactory;
 
 /**
  * Created by cass02 on 2017/4/2.

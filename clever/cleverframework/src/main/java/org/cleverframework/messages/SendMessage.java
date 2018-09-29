@@ -1,7 +1,7 @@
 package org.cleverframework.messages;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * 发送消息体格式
  */
 public class SendMessage {
 

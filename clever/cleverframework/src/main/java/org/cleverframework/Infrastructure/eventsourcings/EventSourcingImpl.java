@@ -1,10 +1,9 @@
-package org.cleverframework.Infrastructure.eventsourcings;
+package org.cleverframework.infrastructure.eventsourcings;
 
-import org.cleverframework.Infrastructure.eventstores.EventStore;
-import org.cleverframework.Infrastructure.eventstores.EventStream;
-import org.cleverframework.Infrastructure.eventstores.MysqlEventStoreImpl;
-import org.cleverframework.Infrastructure.snapshots.MysqlSnapshotStorage;
-import org.cleverframework.Infrastructure.snapshots.SnapshotStorage;
+import org.cleverframework.infrastructure.eventstores.EventStore;
+import org.cleverframework.infrastructure.eventstores.MysqlEventStoreImpl;
+import org.cleverframework.infrastructure.snapshots.MysqlSnapshotStorage;
+import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
 import org.cleverframework.domain.AggregateRoot;
 
 /**
@@ -17,7 +16,6 @@ public class EventSourcingImpl implements EventSourcing {
     private SnapshotStorage snapshotStorage = new MysqlSnapshotStorage();
 
     public <T extends AggregateRoot> T get(String aggregateRootId) {
-
 
         return null;
     }

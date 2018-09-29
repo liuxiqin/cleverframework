@@ -1,4 +1,4 @@
-package org.cleverframework.Infrastructure.exceptions;
+package org.cleverframework.infrastructure.exceptions;
 
 /**
  * Created by Administrator on 2017-04-01 .

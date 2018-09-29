@@ -1,20 +1,19 @@
-package org.cleverframework.Infrastructure.eventstores;
+package org.cleverframework.infrastructure.eventstores;
 
 import java.io.Serializable;
 
 /**
- * Created by Administrator on 2017-04-10 .
+ * 事件流记录
  */
 public class EventStreamRecord implements Serializable {
 
-    private int  version;
+    private int version;
 
     private String aggregateRootId;
 
     private String commandId;
 
     private byte[] eventBytes;
-
 
     public int getVersion() {
         return version;

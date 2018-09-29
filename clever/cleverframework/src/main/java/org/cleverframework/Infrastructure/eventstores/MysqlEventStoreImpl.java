@@ -1,6 +1,4 @@
-package org.cleverframework.Infrastructure.eventstores;
-
-import java.util.List;
+package org.cleverframework.infrastructure.eventstores;
 
 /**
  * Created by cass02 on 2017/4/2.

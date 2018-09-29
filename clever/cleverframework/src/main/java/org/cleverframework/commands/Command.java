@@ -4,15 +4,14 @@ import org.cleverframework.messages.Message;
 
 public abstract class Command extends Message {
 
-    private String commandId;
+    private String aggregateRootId;
 
-    public Command(String uniqueId) {
-        super(uniqueId);
-        commandId = uniqueId;
+    public Command(String aggregateRootId) {
+        this.aggregateRootId = aggregateRootId;
     }
 
-    public String getCommandId() {
-        return this.commandId;
+    public String getAggregateRootId() {
+        return this.aggregateRootId;
     }
 
 }

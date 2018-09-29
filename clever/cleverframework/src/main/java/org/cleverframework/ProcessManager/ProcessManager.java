@@ -1,5 +1,5 @@
-package org.cleverframework.ProcessManager;
+package org.cleverframework.processmanager;
 
-public interface ProcessManager {
- 
+public @interface ProcessManager {
+
 }

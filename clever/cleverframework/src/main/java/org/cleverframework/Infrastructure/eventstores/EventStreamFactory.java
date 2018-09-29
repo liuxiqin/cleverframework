@@ -1,8 +1,8 @@
-package org.cleverframework.Infrastructure.eventstores;
+package org.cleverframework.infrastructure.eventstores;
 
 import com.google.common.collect.Lists;
-import org.cleverframework.Infrastructure.serializes.BinarySerializer;
-import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
+import org.cleverframework.infrastructure.serializes.BinarySerializer;
+import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
 import org.cleverframework.domain.AggregateRoot;
 import org.cleverframework.events.Event;
 
@@ -16,7 +16,7 @@ public class EventStreamFactory {
 
     public static BinarySerializer binarySerializer = new BinarySerializerImpl();
 
-    public static EventStreamRecord create(AggregateRoot aggregateRoot, String commandId) throws Exception {
+    public static EventStreamRecord create(AggregateRoot aggregateRoot, String commandId)  {
 
 
         EventStreamRecord eventStream = new EventStreamRecord();

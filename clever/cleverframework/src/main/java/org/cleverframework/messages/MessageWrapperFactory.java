@@ -3,7 +3,7 @@ package org.cleverframework.messages;
 import org.cleverframework.commands.Command;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * 消息体封装工厂方法
  */
 public class MessageWrapperFactory {
 
@@ -11,7 +11,6 @@ public class MessageWrapperFactory {
 
 
         String topic = command.getClass().getPackage().getName();
-
 
         return new MessageWrapper();
     }

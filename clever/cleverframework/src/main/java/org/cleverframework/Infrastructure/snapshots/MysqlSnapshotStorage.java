@@ -1,15 +1,17 @@
-package org.cleverframework.Infrastructure.snapshots;
+package org.cleverframework.infrastructure.snapshots;
 
 /**
- * Created by Administrator on 2017-04-13 .
+ * MYSQL 快照存储实现
  */
 public class MysqlSnapshotStorage implements SnapshotStorage {
 
     public Snapshot getLastSnapshot(String aggregateRootId) {
+
         return null;
     }
 
-    public void create(Snapshot snapshot) {
+    @Override
+    public void save(Snapshot snapshot) {
 
     }
 }

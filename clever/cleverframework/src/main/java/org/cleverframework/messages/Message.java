@@ -1,12 +1,13 @@
 package org.cleverframework.messages;
 
-import java.io.Serializable;
-import java.util.Date;
-
 import org.cleverframework.common.ObjectId;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Map;
+
 /**
- * the abstract message
+ * 消息抽象类|[事件消息，命令消息]
  */
 public abstract class Message implements Serializable {
 
@@ -14,20 +15,12 @@ public abstract class Message implements Serializable {
 
     private long timestamp;
 
-    private String createBy;
+    private Map<String, Object> attributes;
 
     public Message() {
-        if (identityId == null || identityId.equals("")) {
-            identityId = ObjectId.getNextId();
-        }
-        if (timestamp == 0) {
-            timestamp = new Date().getTime();
-        }
-    }
 
-    public Message(String messageId) {
-        this.identityId = messageId;
-        timestamp = System.currentTimeMillis();
+        identityId = ObjectId.getNextId();
+        timestamp = new Date().getTime();
     }
 
     public String getId() {

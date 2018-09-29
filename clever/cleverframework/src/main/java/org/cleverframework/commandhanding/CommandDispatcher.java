@@ -1,6 +1,7 @@
 package org.cleverframework.commandhanding;
 
 import org.cleverframework.commands.Command;
+import org.cleverframework.commands.CommandProcessorContext;
 
 import javax.annotation.Resource;
 
@@ -19,6 +20,8 @@ public class CommandDispatcher {
 
         CommandHandler commandHandler = commandHandlerProvider.getHandler(command.getClass().getName());
 
-        commandProcessor.process(commandHandler, command);
+        CommandProcessorContext context = new  CommandProcessorContext(commandHandler, command);
+
+        commandProcessor.process(context);
     }
 }

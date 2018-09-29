@@ -8,6 +8,4 @@ public interface CommandService {
     <T extends Command> CommandExecuteResult sendAndWait(T command);
 
     <T extends Command> void sendAsync(T command);
-
-
 }

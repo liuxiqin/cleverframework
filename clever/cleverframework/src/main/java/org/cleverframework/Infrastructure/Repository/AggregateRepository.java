@@ -1,4 +1,4 @@
-package org.cleverframework.Infrastructure.Repository;
+package org.cleverframework.infrastructure.repository;
 
 import org.cleverframework.domain.AggregateRoot;
 
@@ -7,5 +7,5 @@ import org.cleverframework.domain.AggregateRoot;
  */
 public interface AggregateRepository<T extends AggregateRoot> {
 
-    T get(String aggregateRootId) throws Exception;
+    T get(String aggregateRootId);
 }

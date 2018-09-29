@@ -1,11 +1,20 @@
-package org.cleverframework.Infrastructure.snapshots;
+package org.cleverframework.infrastructure.snapshots;
 
 /**
- * Created by Administrator on 2017-04-13 .
+ * 快照存储抽象类
  */
 public interface SnapshotStorage {
 
+    /**
+     * 获取最后一次快照
+     *
+     * @param aggregateRootId
+     * @return
+     */
     Snapshot getLastSnapshot(String aggregateRootId);
 
-    void create(Snapshot snapshot);
+    /*
+     * 保存快照
+     */
+    void save(Snapshot snapshot);
 }

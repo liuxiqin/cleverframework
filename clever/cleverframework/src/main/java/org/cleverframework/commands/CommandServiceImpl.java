@@ -1,8 +1,8 @@
 package org.cleverframework.commands;
 
 
-import org.cleverframework.Infrastructure.serializes.JacksonSerializerImpl;
-import org.cleverframework.Infrastructure.serializes.JsonSerializer;
+import org.cleverframework.infrastructure.serializes.JacksonSerializerImpl;
+import org.cleverframework.infrastructure.serializes.JsonSerializer;
 import org.cleverframework.messages.MessageProducer;
 import org.cleverframework.messages.MessageWrapper;
 

@@ -2,10 +2,8 @@ package org.cleverframework.messages;
 
 
 import com.rabbitmq.client.*;
-import org.cleverframework.Infrastructure.serializes.BinarySerializer;
-import org.cleverframework.Infrastructure.serializes.BinarySerializerImpl;
-
-import java.util.Date;
+import org.cleverframework.infrastructure.serializes.BinarySerializer;
+import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
 
 /**
  * Created by cass02 on 2017/4/2.

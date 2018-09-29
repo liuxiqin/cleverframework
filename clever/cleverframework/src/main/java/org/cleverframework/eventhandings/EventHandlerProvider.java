@@ -1,6 +1,6 @@
 package org.cleverframework.eventhandings;
 
-import org.cleverframework.Infrastructure.exceptions.NotFoundException;
+import org.cleverframework.infrastructure.exceptions.NotFoundException;
 
 import java.util.HashMap;
 import java.util.Map;

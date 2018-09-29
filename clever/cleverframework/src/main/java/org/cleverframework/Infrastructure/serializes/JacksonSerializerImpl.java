@@ -1,25 +1,54 @@
-package org.cleverframework.Infrastructure.serializes;
+package org.cleverframework.infrastructure.serializes;
 
-import java.lang.reflect.ParameterizedType;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.cleverframework.infrastructure.exceptions.serializer.JsonDeSerializerException;
+import org.cleverframework.infrastructure.exceptions.serializer.JsonSerializerException;
 
 /**
- * Created by Administrator on 2017-04-02 .
+ *
  */
 public class JacksonSerializerImpl implements JsonSerializer {
 
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    public <T> String serialize(T object) throws Exception {
-        return null;
+    public JacksonSerializerImpl() {
+        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
     }
 
-    public <T> T deSerialize(String json, Class<?> beanClass) {
 
-        return null;
+    public <T> String serialize(T object) {
+
+        try {
+            return objectMapper.writeValueAsString(object);
+
+        } catch (Exception e) {
+
+            throw new JsonSerializerException(e);
+        }
     }
 
-    public <T> T deSerializes(String json, Class<?> beanClass) {
+    public <T> T deSerialize(String json, Class<T> beanClass) {
 
-        return null;
+        try {
+
+            return (T) objectMapper.readValue(json, beanClass);
+
+        } catch (Exception e) {
+
+            throw new JsonDeSerializerException(e);
+        }
+    }
+
+    public <T> T deSerializes(String json, Class<T> beanClass) {
+
+        try {
+            return (T) objectMapper.readValue(json, beanClass);
+
+        } catch (Exception e) {
+
+            throw new JsonDeSerializerException(e);
+        }
     }
 
 }
