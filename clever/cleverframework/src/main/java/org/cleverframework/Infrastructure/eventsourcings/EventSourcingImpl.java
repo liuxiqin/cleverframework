@@ -7,7 +7,9 @@ import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
 import org.cleverframework.domain.AggregateRoot;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * 事件溯源
+ *
+ * @author xiqin.liu
  */
 public class EventSourcingImpl implements EventSourcing {
 

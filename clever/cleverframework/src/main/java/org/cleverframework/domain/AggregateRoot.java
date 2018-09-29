@@ -10,6 +10,11 @@ import java.io.Serializable;
 import java.util.*;
 
 
+/**
+ * 聚合根抽象类
+ *
+ * @author xiqin.liu
+ */
 public class AggregateRoot implements Serializable {
 
     private static final long serialVersionUID = -4697010448972546861L;
@@ -45,22 +50,26 @@ public class AggregateRoot implements Serializable {
 
         List<Event> events = new ArrayList<Event>();
 
-        for (Event event : unCommitEvents)
+        for (Event event : unCommitEvents) {
             events.add(event);
+        }
 
         return events;
     }
 
     public void applyEvent(Event event) {
-        if (event instanceof DomainEvent)
+
+        if (event instanceof DomainEvent) {
             handleEvent(event);
+        }
         appendUnCommitEvents(event);
     }
 
     public void appendUnCommitEvents(Event event) {
 
-        if (unCommitEvents == null)
+        if (unCommitEvents == null) {
             unCommitEvents = new LinkedList<Event>();
+        }
 
         unCommitEvents.add(event);
     }
@@ -73,14 +82,19 @@ public class AggregateRoot implements Serializable {
 
     public void handleEvent(Event event) {
 
-        if (eventHandlerProvider == null)
+        if (eventHandlerProvider == null) {
             eventHandlerProvider = ApplicationContext.getBean(EventHandlerProvider.class);
+        }
+
 
         try {
             EventHandler handler = eventHandlerProvider.getEventHandler(event.getClass().getName());
-            if (handler == null)
+            if (handler == null) {
                 return;
+            }
+
             handler.handle(event);
+
         } catch (Exception e) {
             logger.error(" handleEvent error:->{}", event);
         }

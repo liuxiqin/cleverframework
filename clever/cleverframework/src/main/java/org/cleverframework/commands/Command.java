@@ -2,6 +2,9 @@ package org.cleverframework.commands;
 
 import org.cleverframework.messages.Message;
 
+/**
+ * 命令抽象类
+ */
 public abstract class Command extends Message {
 
     private String aggregateRootId;

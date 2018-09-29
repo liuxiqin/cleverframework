@@ -3,7 +3,9 @@ package org.cleverframework.infrastructure.eventsourcings;
 import org.cleverframework.domain.AggregateRoot;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * 事件溯源接口抽象
+ *
+ * @author xiqin.liu
  */
 public interface EventSourcing {
 

@@ -35,9 +35,11 @@ public class MessageWrapper implements Serializable {
     private long bodyLength;
 
     /**
-     * 消息路由键|消费组
+     * 消息路由键
      */
     private String routingKey;
+
+    private Boolean needResponse;
 
     /**
      * 消息TOPIC
@@ -98,6 +100,15 @@ public class MessageWrapper implements Serializable {
 
     public void setTopic(String topic) {
         this.topic = topic;
+    }
+
+
+    public Boolean getNeedResponse() {
+        return needResponse;
+    }
+
+    public void setNeedResponse(Boolean needResponse) {
+        this.needResponse = needResponse;
     }
 
     @Override

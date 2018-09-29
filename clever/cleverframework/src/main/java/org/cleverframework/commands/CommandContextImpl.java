@@ -1,11 +1,11 @@
 package org.cleverframework.commands;
 
+import com.google.common.collect.Maps;
 import org.cleverframework.infrastructure.repository.AggregateRepositoryProxy;
 import org.cleverframework.infrastructure.repository.EventSourcingAggregateRepository;
 import org.cleverframework.infrastructure.repository.AggregateRepository;
 import org.cleverframework.domain.AggregateRoot;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class CommandContextImpl implements CommandContext {
 
-    private Map<String, AggregateRoot> aggregateRoots = new HashMap();
+    private Map<String, AggregateRoot> aggregateRoots = Maps.newHashMap();
 
     public Map<String, AggregateRoot> getAggregateRoots() {
 
@@ -29,7 +29,7 @@ public class CommandContextImpl implements CommandContext {
 
     public <T extends AggregateRoot> T get(String aggregateRootId) {
 
-        AggregateRepository<T> repository = new AggregateRepositoryProxy<T>(new EventSourcingAggregateRepository<T>());
+        AggregateRepository<T> repository = new AggregateRepositoryProxy(new EventSourcingAggregateRepository());
 
         if (!aggregateRoots.containsKey(aggregateRootId)) {
 

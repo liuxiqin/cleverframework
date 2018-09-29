@@ -4,7 +4,6 @@ import com.rabbitmq.client.*;
 
 
 import java.io.IOException;
-import java.io.InterruptedIOException;
 import java.util.concurrent.TimeoutException;
 import java.util.Date;
 

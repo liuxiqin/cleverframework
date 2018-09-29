@@ -1,4 +1,4 @@
-package org.cleverframework.Infrastructure.Repository;
+package org.cleverframework.infrastructure.repository;
 
 import org.cleverframework.domain.AggregateRoot;
 

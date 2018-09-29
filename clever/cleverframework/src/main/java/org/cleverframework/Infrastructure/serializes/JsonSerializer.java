@@ -5,7 +5,7 @@ package org.cleverframework.infrastructure.serializes;
  */
 public interface JsonSerializer {
 
-    <T> String serialize(T object) throws Exception;
+    <T> String serialize(T object) ;
 
     <T> T deSerialize(String json, Class<T> beanClass);
 

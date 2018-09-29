@@ -5,7 +5,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 import java.io.Serializable;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * @author xiqin.liu
  */
 public class MessageExecuteResult implements Serializable {
 

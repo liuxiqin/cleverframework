@@ -12,7 +12,7 @@ import org.cleverframework.domain.AggregateRoot;
 import org.cleverframework.domain.AggregateRootFactory;
 
 /**
- * Created by cass02 on 2017/4/15.
+ * 事件溯源聚合根资源库实现
  */
 public class EventSourcingAggregateRepository<T extends AggregateRoot> implements AggregateRepository<T> {
 
@@ -22,25 +22,28 @@ public class EventSourcingAggregateRepository<T extends AggregateRoot> implement
 
     private AggregateRootMemoryCache memoryCache = new AggregateRootMemoryCacheImpl();
 
-    public T get(String aggregateRootId) throws Exception {
+    public T get(String aggregateRootId) {
 
         T aggregateRoot = memoryCache.get(aggregateRootId);
 
-        if (aggregateRoot != null && aggregateRoot.getUnCommitEvents().size() == 0)
+        if (aggregateRoot != null && aggregateRoot.getUnCommitEvents().size() == 0) {
             return aggregateRoot;
+        }
 
         Snapshot snapshot = snapshotStorage.getLastSnapshot(aggregateRootId);
 
-        if (snapshot != null)
+        if (snapshot != null) {
             aggregateRoot = AggregateRootFactory.createNew(snapshot.getAggregateRootBytes());
-
-        if (aggregateRoot == null)
+        }
+        if (aggregateRoot == null) {
             aggregateRoot = AggregateRootFactory.createNew();
+        }
 
         EventStream eventStream = eventStore.get(aggregateRootId, aggregateRoot.getVersion());
 
-        if (eventStream != null && eventStream.getEvents() != null && eventStream.getEvents().size() > 0)
+        if (eventStream != null && eventStream.getEvents() != null && eventStream.getEvents().size() > 0) {
             aggregateRoot.applyEvents(eventStream.getEvents());
+        }
 
         memoryCache.put(aggregateRootId, aggregateRoot);
 

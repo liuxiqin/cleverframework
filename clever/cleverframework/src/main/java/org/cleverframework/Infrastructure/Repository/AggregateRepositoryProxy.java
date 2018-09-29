@@ -3,7 +3,7 @@ package org.cleverframework.infrastructure.repository;
 import org.cleverframework.domain.AggregateRoot;
 
 /**
- * Created by cass02 on 2017/4/15.
+ * 聚合资源库代理类
  */
 public class AggregateRepositoryProxy<T extends AggregateRoot> implements AggregateRepository {
 
@@ -13,7 +13,8 @@ public class AggregateRepositoryProxy<T extends AggregateRoot> implements Aggreg
         this.aggregateRepository = aggregateRepository;
     }
 
-    public AggregateRoot get(String aggregateRootId) throws Exception {
+    public AggregateRoot get(String aggregateRootId) {
         return aggregateRepository.get(aggregateRootId);
     }
+
 }

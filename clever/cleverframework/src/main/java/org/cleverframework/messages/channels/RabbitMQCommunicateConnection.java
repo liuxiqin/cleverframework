@@ -9,6 +9,7 @@ public class RabbitMQCommunicateConnection implements CommunicateConnection {
 
     }
 
+    @Override
     public CommunicateChannel createChannel() {
         return null;
     }

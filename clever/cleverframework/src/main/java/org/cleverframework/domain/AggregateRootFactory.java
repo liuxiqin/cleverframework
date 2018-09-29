@@ -22,14 +22,11 @@ public class AggregateRootFactory {
         return (T) objectInstantiator.newInstance();
     }
 
-    public static <T extends AggregateRoot> T create() {
-        return (T) new AggregateRoot();
-    }
+    public static <T extends AggregateRoot> T createNew(byte[] aggregateRootBytes) {
 
-    public static <T extends AggregateRoot> T createNew(byte[] aggregateRootBytes) throws Exception {
-
-        if (aggregateRootBytes == null || aggregateRootBytes.length == 0)
+        if (aggregateRootBytes == null || aggregateRootBytes.length == 0) {
             return null;
+        }
 
         return binarySerializer.deSerialize(aggregateRootBytes);
     }

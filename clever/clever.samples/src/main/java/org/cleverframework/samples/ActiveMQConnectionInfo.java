@@ -1,7 +1,7 @@
 package org.cleverframework.samples;
 
 /**
- * Created by cass02 on 2017/4/21.
+ * ActiveMAps
  */
 public class ActiveMQConnectionInfo {
 
