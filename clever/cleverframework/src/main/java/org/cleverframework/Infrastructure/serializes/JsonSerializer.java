@@ -1,13 +1,38 @@
 package org.cleverframework.infrastructure.serializes;
 
 /**
- * Created by Administrator on 2017-04-02 .
+ * JSON 系列化与反序列化接口
+ *
+ * @author xiqin.liu
  */
 public interface JsonSerializer {
 
-    <T> String serialize(T object) ;
+    /**
+     * JSON系列化
+     *
+     * @param object
+     * @param <T>
+     * @return
+     */
+    <T> String serialize(T object);
 
+    /**
+     * JSON 反序列化
+     *
+     * @param json
+     * @param beanClass
+     * @param <T>
+     * @return
+     */
     <T> T deSerialize(String json, Class<T> beanClass);
 
+    /**
+     * JSON 批量反序列化
+     *
+     * @param json
+     * @param beanClass
+     * @param <T>
+     * @return
+     */
     <T> T deSerializes(String json, Class<T> beanClass);
 }

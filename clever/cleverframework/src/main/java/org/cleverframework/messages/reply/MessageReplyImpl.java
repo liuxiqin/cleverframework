@@ -1,5 +1,6 @@
 package org.cleverframework.messages.reply;
 
+import org.cleverframework.infrastructure.exceptions.GetMessageHandlerResultException;
 import org.cleverframework.messages.MessageHandlerResult;
 
 /**
@@ -23,11 +24,24 @@ public class MessageReplyImpl implements MessageReply {
 
     @Override
     public MessageHandlerResult getResult() {
-        return null;
+
+        try {
+
+            this.wait(timeout);
+
+            return this.messageHandlerResult;
+
+        } catch (InterruptedException e) {
+
+            throw new GetMessageHandlerResultException(messageId, e);
+        }
     }
 
     @Override
     public void setResult(MessageHandlerResult result) {
 
+        this.messageHandlerResult = result;
+
+        this.notify();
     }
 }

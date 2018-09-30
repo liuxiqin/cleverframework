@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by cass02 on 2017/4/2.
  */
-public class MessageContext implements Serializable {
+public class MessageExecuteContext implements Serializable {
 
     private static final long serialVersionUID = -4546253438746170496L;
 
@@ -26,7 +26,7 @@ public class MessageContext implements Serializable {
 
     private final String messageId;
 
-    public MessageContext(MessageChannel channel, long deliveryTag, MessageWrapper messageWrapper) {
+    public MessageExecuteContext(MessageChannel channel, long deliveryTag, MessageWrapper messageWrapper) {
 
         this.messageChannel = channel;
         this.deliveryTag = deliveryTag;

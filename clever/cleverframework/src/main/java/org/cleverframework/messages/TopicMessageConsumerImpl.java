@@ -25,13 +25,13 @@ public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
 
     private BinarySerializer binarySerializer = new BinarySerializerImpl();
 
-    private java.util.function.Consumer<MessageContext> messageAction;
+    private java.util.function.Consumer<MessageExecuteContext> messageAction;
 
     private Connection connection;
 
     private Channel channel;
 
-    public TopicMessageConsumerImpl(String topic, String routingKey, ExecutorService executorService, java.util.function.Consumer<MessageContext> messageAction) {
+    public TopicMessageConsumerImpl(String topic, String routingKey, ExecutorService executorService, java.util.function.Consumer<MessageExecuteContext> messageAction) {
         this.topic = topic;
         this.routingKey = routingKey;
         this.executorService = executorService;
@@ -78,7 +78,7 @@ public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
                                            AMQP.BasicProperties properties, byte[] body) {
                     try {
 
-                        MessageContext messageContext = buildMessageContext(channel, envelope.getDeliveryTag(), body);
+                        MessageExecuteContext messageContext = buildMessageContext(channel, envelope.getDeliveryTag(), body);
 
                         messageAction.accept(messageContext);
 
@@ -121,12 +121,12 @@ public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
         return this.topic + "_" + this.routingKey;
     }
 
-    private MessageContext buildMessageContext(Channel channel, long deliveryTag, byte[] messageBody) throws Exception {
+    private MessageExecuteContext buildMessageContext(Channel channel, long deliveryTag, byte[] messageBody) throws Exception {
 
         MessageWrapper messageWrapper = binarySerializer.deSerialize(messageBody);
 
         MessageChannel messageChannel = new MessageChannel(channel);
 
-        return new MessageContext(messageChannel, deliveryTag, messageWrapper);
+        return new MessageExecuteContext(messageChannel, deliveryTag, messageWrapper);
     }
 }

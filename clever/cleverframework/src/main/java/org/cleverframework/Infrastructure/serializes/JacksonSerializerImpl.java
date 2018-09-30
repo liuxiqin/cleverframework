@@ -16,7 +16,7 @@ public class JacksonSerializerImpl implements JsonSerializer {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true);
     }
 
-
+    @Override
     public <T> String serialize(T object) {
 
         try {
@@ -28,6 +28,7 @@ public class JacksonSerializerImpl implements JsonSerializer {
         }
     }
 
+    @Override
     public <T> T deSerialize(String json, Class<T> beanClass) {
 
         try {
@@ -40,6 +41,7 @@ public class JacksonSerializerImpl implements JsonSerializer {
         }
     }
 
+    @Override
     public <T> T deSerializes(String json, Class<T> beanClass) {
 
         try {

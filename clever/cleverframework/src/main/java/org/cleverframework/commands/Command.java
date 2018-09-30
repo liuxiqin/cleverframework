@@ -17,4 +17,8 @@ public abstract class Command extends Message {
         return this.aggregateRootId;
     }
 
+    public String getCommandId() {
+        return this.getMessageId();
+    }
+
 }

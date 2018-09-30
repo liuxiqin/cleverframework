@@ -4,7 +4,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2017-04-16 .
+ * 消息ClassName 与Class的映射存储容器
+ *
+ * @author xiqin.liu
  */
 public class MessageClassContainer {
 
@@ -21,8 +23,9 @@ public class MessageClassContainer {
     }
 
     public static Class<?> get(String className) {
-        if (!classMaps.containsKey(className))
+        if (!classMaps.containsKey(className)) {
             return null;
+        }
 
         return classMaps.get(className);
     }

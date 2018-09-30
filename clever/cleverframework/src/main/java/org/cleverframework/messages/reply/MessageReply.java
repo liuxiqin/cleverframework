@@ -10,14 +10,14 @@ import org.cleverframework.messages.MessageHandlerResult;
 public interface MessageReply {
 
     /**
-     * 获取应答结果
+     * 获取应答结果, 此处可能会阻塞等待结果
      *
      * @return
      */
     MessageHandlerResult getResult();
 
     /**
-     * 设置应答结果
+     * 设置应答结果， 系统获取到消息结果进行赋值，并通知阻塞现线程
      *
      * @param result
      */

@@ -1,6 +1,7 @@
 package org.cleverframework.commandhanding;
 
 import org.cleverframework.infrastructure.eventstores.*;
+import org.cleverframework.infrastructure.repository.AggregateRepository;
 import org.cleverframework.infrastructure.snapshots.MysqlSnapshotStorage;
 import org.cleverframework.infrastructure.snapshots.Snapshot;
 import org.cleverframework.infrastructure.snapshots.SnapshotFactory;
@@ -18,15 +19,31 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * 命令处理
+ *
+ * @author xiqin.liu
  */
 public class CommandProcessorImpl implements CommandProcessor {
 
-    private EventStore eventStore = new MysqlEventStoreImpl();
+    private EventStore eventStore;
 
-    private SnapshotStorage snapshotStorage = new MysqlSnapshotStorage();
+    private SnapshotStorage snapshotStorage;
 
-    private EventPublisher eventPublisher = new EventPublisherImpl();
+    private EventPublisher eventPublisher;
+
+    private AggregateRepository aggregateRepository;
+
+    public CommandProcessorImpl(
+            EventPublisher eventPublisher,
+            SnapshotStorage snapshotStorage,
+            EventStore eventStore,
+            AggregateRepository aggregateRepository) {
+
+        this.eventPublisher = eventPublisher;
+        this.snapshotStorage = snapshotStorage;
+        this.eventStore = eventStore;
+        this.aggregateRepository = aggregateRepository;
+    }
 
     private AggregateRoot getChangedAggregateRoot(Map<String, AggregateRoot> aggregateRoots) {
 
@@ -34,15 +51,14 @@ public class CommandProcessorImpl implements CommandProcessor {
     }
 
 
-    public <T extends Command> void process(CommandHandler<T> commandHandler, T command) throws Exception {
+    public <T extends Command> void process(CommandHandler<T> commandHandler, T command) {
 
     }
 
     @Override
     public <T extends Command> void process(CommandProcessorContext context) {
 
-
-        CommandContext commandContext = new CommandContextImpl();
+        CommandContext commandContext = new CommandContextImpl(aggregateRepository);
 
         context.getCommandHandler().handle(commandContext, context.getCommand());
 
@@ -62,7 +78,7 @@ public class CommandProcessorImpl implements CommandProcessor {
 
         List<Event> unCommitEvents = changedAggregateRoot.getUnCommitEvents();
 
-        EventStreamRecord eventStreamRecord = EventStreamFactory.create(changedAggregateRoot, context.getCommand().getId());
+        EventStreamRecord eventStreamRecord = EventStreamFactory.create(changedAggregateRoot, context.getCommand().getCommandId());
 
         eventStore.appendEventsToStream(eventStreamRecord);
 

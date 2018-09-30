@@ -4,22 +4,21 @@ import org.cleverframework.infrastructure.serializes.JacksonSerializerImpl;
 import org.cleverframework.infrastructure.serializes.JsonSerializer;
 import org.cleverframework.messages.Message;
 import org.cleverframework.messages.MessageClassContainer;
-import org.cleverframework.messages.MessageContext;
+import org.cleverframework.messages.MessageExecuteContext;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * 接收消息处理，反序列化
+ *
+ * @author xiqin.liu
  */
 public class ReceivedMessageExecute implements MessageExecute {
 
     private JsonSerializer jsonSerializer = new JacksonSerializerImpl();
 
-    public void execute(MessageContext context) {
+    @Override
+    public void execute(MessageExecuteContext context) {
 
-        String messageName = context.getMessageWrapper().getMessageName();
-
-        Class<?> messageClass = MessageClassContainer.get(messageName);
-
-        Message message = jsonSerializer.deSerialize(context.getMessageWrapper().getMessageBody(), messageClass);
+        Message message = jsonSerializer.deSerialize(context.getMessageWrapper().getMessageBody(), Message.class);
 
         context.setMessage(message);
     }

@@ -1,6 +1,7 @@
-package org.cleverframework.messages.channels;
+package org.cleverframework.messages.channels.impl;
 
 import org.cleverframework.messages.MessageWrapper;
+import org.cleverframework.messages.channels.CommunicateChannel;
 
 /**
  * 消息通道实现

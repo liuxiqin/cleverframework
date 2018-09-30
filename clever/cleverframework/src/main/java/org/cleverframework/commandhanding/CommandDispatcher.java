@@ -6,21 +6,28 @@ import org.cleverframework.commands.CommandProcessorContext;
 import javax.annotation.Resource;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * 命令分发器
+ *
+ * @author xiqin.liu
  */
 public class CommandDispatcher {
 
-    @Resource
     private CommandHandlerProvider commandHandlerProvider;
 
-    @Resource
-    private CommandProcessor commandProcessor = new CommandProcessorProxy(new CommandProcessorImpl());
+    private CommandProcessor commandProcessor;
+
+    public CommandDispatcher(CommandHandlerProvider commandHandlerProvider,
+                             CommandProcessor commandProcessor) {
+
+        this.commandHandlerProvider = commandHandlerProvider;
+        this.commandProcessor = commandProcessor;
+    }
 
     public <T extends Command> void dispatch(T command) throws Exception {
 
         CommandHandler commandHandler = commandHandlerProvider.getHandler(command.getClass().getName());
 
-        CommandProcessorContext context = new  CommandProcessorContext(commandHandler, command);
+        CommandProcessorContext context = new CommandProcessorContext(commandHandler, command);
 
         commandProcessor.process(context);
     }

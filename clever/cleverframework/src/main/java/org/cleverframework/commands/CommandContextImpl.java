@@ -17,19 +17,29 @@ public class CommandContextImpl implements CommandContext {
 
     private Map<String, AggregateRoot> aggregateRoots = Maps.newHashMap();
 
+    private AggregateRepository aggregateRepository;
+
+    public CommandContextImpl(AggregateRepository<?> aggregateRepository) {
+
+        this.aggregateRepository = aggregateRepository;
+    }
+
+    @Override
     public Map<String, AggregateRoot> getAggregateRoots() {
 
         return aggregateRoots;
     }
 
+    @Override
     public void add(AggregateRoot aggregateRoot) {
 
         aggregateRoots.put(aggregateRoot.getId(), aggregateRoot);
     }
 
+    @Override
     public <T extends AggregateRoot> T get(String aggregateRootId) {
 
-        AggregateRepository<T> repository = new AggregateRepositoryProxy(new EventSourcingAggregateRepository());
+        AggregateRepository<T> repository = aggregateRepository;
 
         if (!aggregateRoots.containsKey(aggregateRootId)) {
 

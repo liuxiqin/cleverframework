@@ -13,7 +13,7 @@ public class MessageReplyPool {
     private final static ConcurrentHashMap<String, MessageReply> messageReplyPools = new ConcurrentHashMap<>();
 
 
-    public static MessageReply getMessageReply(String messageId) {
+    public static MessageReply getAndRemoveMessageReply(String messageId) {
 
         if (!messageReplyPools.containsKey(messageId)) {
             return null;

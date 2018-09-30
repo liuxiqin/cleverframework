@@ -5,11 +5,14 @@ import org.cleverframework.infrastructure.exceptions.serializer.BinarySerializer
 import java.io.*;
 
 /**
- * Created by Administrator on 2017-04-09 .
+ * 二进制系列和反序列化实现
+ *
+ * @author xiqin.liu
  */
 public class BinarySerializerImpl implements BinarySerializer {
 
-    public <T> byte[] serialize(T object) throws IOException {
+    @Override
+    public <T> byte[] serialize(T object) {
 
         if (object == null) {
             return null;
@@ -32,15 +35,22 @@ public class BinarySerializerImpl implements BinarySerializer {
         }
     }
 
-    public <T> T deSerialize(byte[] bytes) throws Exception {
+    @Override
+    public <T> T deSerialize(byte[] bytes) {
 
-        if (bytes == null || bytes.length == 0)
+        if (bytes == null || bytes.length == 0) {
             return null;
+        }
 
-        InputStream inputStream = new ByteArrayInputStream(bytes);
+        try {
+            InputStream inputStream = new ByteArrayInputStream(bytes);
 
-        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+            ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
 
-        return (T) objectInputStream.readObject();
+            return (T) objectInputStream.readObject();
+        } catch (Exception e) {
+
+            return null;
+        }
     }
 }

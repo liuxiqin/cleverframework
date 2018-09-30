@@ -27,7 +27,7 @@ public class SendMessageTask implements Callable<MessageReply> {
     }
 
     @Override
-    public MessageReply call() throws Exception {
+    public MessageReply call() {
 
         communicateChannelFactoryPool.getChannel().publish(messageWrapper);
 

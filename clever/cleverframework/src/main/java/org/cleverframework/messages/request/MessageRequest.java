@@ -5,7 +5,6 @@ import org.cleverframework.messages.MessageWrapper;
 import org.cleverframework.messages.reply.MessageReply;
 
 import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
 
 /**
  * 消息请求抽象类

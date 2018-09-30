@@ -1,9 +1,9 @@
 package org.cleverframework.messages.pipelines;
 
-import org.cleverframework.messages.MessageContext;
+import org.cleverframework.messages.MessageExecuteContext;
 
 public class ErrorMessageExecute implements MessageExecute {
-    public void execute(MessageContext context) {
+    public void execute(MessageExecuteContext context) {
 
     }
 }

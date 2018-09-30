@@ -1,6 +1,6 @@
 package org.cleverframework.messages.pipelines;
 
-import org.cleverframework.messages.MessageContext;
+import org.cleverframework.messages.MessageExecuteContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ public class MessageExecuteManagers implements MessageExecute {
     }
 
 
-    public void execute(MessageContext messageContext) {
+    public void execute(MessageExecuteContext messageContext) {
 
         executes.forEach(messageExecute -> messageExecute.execute(messageContext));
     }

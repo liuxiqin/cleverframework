@@ -1,10 +1,16 @@
 package org.cleverframework.messages.pipelines;
 
-import org.cleverframework.messages.MessageContext;
+import org.cleverframework.messages.MessageExecuteContext;
 
 /**
- * Created by cass02 on 2017/4/2.
+ * 消息执行抽象
  */
 public interface MessageExecute {
-    void execute(MessageContext context);
+
+    /**
+     * 消息执行管道
+     *
+     * @param context
+     */
+    void execute(MessageExecuteContext context);
 }
