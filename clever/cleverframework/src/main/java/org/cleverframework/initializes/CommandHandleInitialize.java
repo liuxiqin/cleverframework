@@ -5,7 +5,7 @@ package org.cleverframework.initializes;
  */
 public class CommandHandleInitialize implements ApplicationInitialize {
 
-    public void initialize(CleverContext context) {
+    public void initialize(CleverApplicationContext context) {
 
     }
 }

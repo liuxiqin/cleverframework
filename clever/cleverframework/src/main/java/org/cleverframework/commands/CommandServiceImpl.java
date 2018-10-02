@@ -2,15 +2,13 @@ package org.cleverframework.commands;
 
 
 import org.cleverframework.common.ObjectId;
-import org.cleverframework.infrastructure.serializes.JacksonSerializerImpl;
+import org.cleverframework.infrastructure.dependency.Component;
 import org.cleverframework.infrastructure.serializes.JsonSerializer;
-import org.cleverframework.messages.MessageProducer;
 import org.cleverframework.messages.MessageWrapper;
 import org.cleverframework.messages.reply.MessageReply;
 import org.cleverframework.messages.request.MessageRequest;
 
-import java.util.Date;
-import java.util.UUID;
+import javax.annotation.Resource;
 import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 
@@ -19,10 +17,13 @@ import java.util.concurrent.FutureTask;
  *
  * @author xiqin.liu
  */
+@Component
 public class CommandServiceImpl implements CommandService {
 
-    private JsonSerializer jsonSerializer = new JacksonSerializerImpl();
+    @Resource
+    private JsonSerializer jsonSerializer;
 
+    @Resource
     private MessageRequest messageRequest;
 
     private final static long DEFAULT_TIMEOUT = 3000;

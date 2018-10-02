@@ -15,6 +15,7 @@
         <module>cleverframework-http</module>
         <module>cleverframework-netty</module>
         <module>cleverframework-kafka</module>
+        <module>cleverframework-rabbitmq</module>
     </modules>
 
     <dependencies>
@@ -50,11 +51,6 @@
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
             <version>2.5.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.7.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>

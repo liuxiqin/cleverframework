@@ -5,5 +5,5 @@ package org.cleverframework.initializes;
  */
 public interface ApplicationInitialize {
 
-    void initialize(CleverContext context);
+    void initialize(CleverApplicationContext context);
 }
