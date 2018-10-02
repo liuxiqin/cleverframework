@@ -4,6 +4,8 @@ import org.cleverframework.messages.Message;
 
 /**
  * 命令抽象类
+ *
+ * @author xiqin.liu
  */
 public abstract class Command extends Message {
 

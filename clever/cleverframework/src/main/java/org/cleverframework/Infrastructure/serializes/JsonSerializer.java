@@ -35,4 +35,6 @@ public interface JsonSerializer {
      * @return
      */
     <T> T deSerializes(String json, Class<T> beanClass);
+
+    <T> byte[] toBytes(T object);
 }

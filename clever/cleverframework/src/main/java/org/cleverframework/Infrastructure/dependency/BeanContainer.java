@@ -12,25 +12,29 @@ public class BeanContainer {
     private static Map<String, Object> nameBeanMaps = Maps.newHashMap();
 
 
-    public Object get(String name) {
+    public <T> T get(String name) {
 
         throw new UnsupportedOperationException();
     }
 
 
-    public Object get(Class requiredType) {
+    public <T> T get(Class<?> requiredType) {
 
         throw new UnsupportedOperationException();
     }
 
-    public Object get(String name, Class requiredType) {
+    public Object get(String name, Class<?> requiredType) {
 
         throw new UnsupportedOperationException();
     }
 
-    public void add(String name, Object o) {
+    public <T> BeanContainer add(String name, T object) {
+
+        return this;
     }
 
-    public void add(Class objectType, Object o) {
+    public <T> BeanContainer add(Class<?> objectType, T object) {
+
+        return this;
     }
 }

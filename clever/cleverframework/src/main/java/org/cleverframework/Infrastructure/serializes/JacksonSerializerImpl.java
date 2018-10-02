@@ -2,11 +2,16 @@ package org.cleverframework.infrastructure.serializes;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.cleverframework.common.ObjectId;
 import org.cleverframework.infrastructure.exceptions.serializer.JsonDeSerializerException;
 import org.cleverframework.infrastructure.exceptions.serializer.JsonSerializerException;
 
+import java.util.Arrays;
+
 /**
+ * jackson json serializer
  *
+ * @author xiqin.liu
  */
 public class JacksonSerializerImpl implements JsonSerializer {
 
@@ -50,6 +55,23 @@ public class JacksonSerializerImpl implements JsonSerializer {
         } catch (Exception e) {
 
             throw new JsonDeSerializerException(e);
+        }
+    }
+
+    @Override
+    public <T> byte[] toBytes(T object) {
+
+
+        if (null == object) {
+            return new byte[0];
+        }
+
+        try {
+            return objectMapper.writeValueAsBytes(object);
+
+        } catch (Exception e) {
+
+            throw new JsonSerializerException(e);
         }
     }
 

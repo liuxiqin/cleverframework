@@ -2,12 +2,24 @@ package org.cleverframework.infrastructure.repository;
 
 import org.cleverframework.domain.AggregateRoot;
 
-/**
- * Created by cass02 on 2017/4/18.
- */
-public class GenericDaoImpl<Model extends AggregateRoot,K> implements  GenericDao<Model,K> {
+import java.io.Serializable;
 
-    public Model get(K id) {
-        return null;
+/**
+ * dao 层的通用处理
+ *
+ * @author xiqin.liu
+ */
+public class GenericDaoImpl implements GenericDao {
+
+    @Override
+    public <T extends AggregateRoot, Id extends Serializable> T get(Id id) {
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T extends AggregateRoot> void save(T entity) {
+
+        throw new UnsupportedOperationException();
     }
 }

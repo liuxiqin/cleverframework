@@ -4,12 +4,26 @@ import org.cleverframework.domain.AggregateRoot;
 
 /**
  * 非事件溯源资源库实现
+ *
+ * @author xiqin.liu
  */
-public class NoEventSourcingAggregateRepository<T extends AggregateRoot> implements AggregateRepository<T> {
+public class NoEventSourcingAggregateRepository implements AggregateRepository {
 
-    private GenericDao<T, String> genericDao = new GenericDaoImpl<T, String>();
+    private GenericDao genericDao;
 
-    public T get(String aggregateRootId) {
+    public NoEventSourcingAggregateRepository(GenericDao genericDao) {
+
+        this.genericDao = genericDao;
+    }
+
+    @Override
+    public <T extends AggregateRoot> T get(String aggregateRootId) {
+
         return genericDao.get(aggregateRootId);
+    }
+
+    @Override
+    public <T extends AggregateRoot> void save(T aggregateRoot) {
+
     }
 }

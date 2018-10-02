@@ -1,6 +1,6 @@
 package org.cleverframework.commands;
 
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.Future;  
 
 /**
  * 命令消息发送服务
@@ -44,5 +44,5 @@ public interface CommandService {
      * @param <T>     Command
      * @return 返回 FutureTask 任务
      */
-    <T extends Command> FutureTask<CommandExecuteResult> send(T command);
+    <T extends Command> Future<CommandExecuteResult> send(T command);
 }

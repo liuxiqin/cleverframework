@@ -2,6 +2,8 @@ package org.cleverframework.infrastructure.snapshots;
 
 /**
  * 快照存储抽象类
+ *
+ * @author xiqin.liu
  */
 public interface SnapshotStorage {
 
@@ -13,8 +15,10 @@ public interface SnapshotStorage {
      */
     Snapshot getLastSnapshot(String aggregateRootId);
 
-    /*
+    /**
      * 保存快照
+     *
+     * @param snapshot
      */
     void save(Snapshot snapshot);
 }

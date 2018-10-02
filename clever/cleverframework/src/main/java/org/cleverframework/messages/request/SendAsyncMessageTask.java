@@ -27,10 +27,16 @@ public class SendAsyncMessageTask implements Callable<Boolean> {
     }
 
     @Override
-    public Boolean call() throws Exception {
+    public Boolean call()  {
 
-        communicateChannelFactoryPool.getChannel().publish(messageWrapper);
+        try {
+            communicateChannelFactoryPool.getChannel().publish(messageWrapper);
 
-        return true;
+            return Boolean.TRUE;
+
+        } catch (Exception e) {
+
+        }
+        return Boolean.FALSE;
     }
 }

@@ -1,11 +1,8 @@
 package org.cleverframework.infrastructure.repository;
 
 import org.cleverframework.infrastructure.eventsourcings.AggregateRootMemoryCache;
-import org.cleverframework.infrastructure.eventsourcings.AggregateRootMemoryCacheImpl;
 import org.cleverframework.infrastructure.eventstores.EventStore;
 import org.cleverframework.infrastructure.eventstores.EventStream;
-import org.cleverframework.infrastructure.eventstores.MysqlEventStoreImpl;
-import org.cleverframework.infrastructure.snapshots.MysqlSnapshotStorage;
 import org.cleverframework.infrastructure.snapshots.Snapshot;
 import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
 import org.cleverframework.domain.AggregateRoot;
@@ -13,16 +10,27 @@ import org.cleverframework.domain.AggregateRootFactory;
 
 /**
  * 事件溯源聚合根资源库实现
+ *
+ * @author xiqin.liu
  */
-public class EventSourcingAggregateRepository<T extends AggregateRoot> implements AggregateRepository<T> {
+public class EventSourcingAggregateRepository implements AggregateRepository {
 
-    private EventStore eventStore = new MysqlEventStoreImpl();
+    private EventStore eventStore;
 
-    private SnapshotStorage snapshotStorage = new MysqlSnapshotStorage();
+    private SnapshotStorage snapshotStorage;
 
-    private AggregateRootMemoryCache memoryCache = new AggregateRootMemoryCacheImpl();
+    private AggregateRootMemoryCache memoryCache;
 
-    public T get(String aggregateRootId) {
+    public EventSourcingAggregateRepository(EventStore eventStore, SnapshotStorage snapshotStorage, AggregateRootMemoryCache memoryCache) {
+
+        this.eventStore = eventStore;
+        this.snapshotStorage = snapshotStorage;
+        this.memoryCache = memoryCache;
+    }
+
+
+    @Override
+    public <T extends AggregateRoot> T get(String aggregateRootId) {
 
         T aggregateRoot = memoryCache.get(aggregateRootId);
 
@@ -48,6 +56,11 @@ public class EventSourcingAggregateRepository<T extends AggregateRoot> implement
         memoryCache.put(aggregateRootId, aggregateRoot);
 
         return aggregateRoot;
+    }
+
+    @Override
+    public <T extends AggregateRoot> void save(T aggregateRoot) {
+
     }
 
 }

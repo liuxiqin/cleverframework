@@ -19,7 +19,7 @@ public class CommandContextImpl implements CommandContext {
 
     private AggregateRepository aggregateRepository;
 
-    public CommandContextImpl(AggregateRepository<?> aggregateRepository) {
+    public CommandContextImpl(AggregateRepository aggregateRepository) {
 
         this.aggregateRepository = aggregateRepository;
     }
@@ -39,7 +39,7 @@ public class CommandContextImpl implements CommandContext {
     @Override
     public <T extends AggregateRoot> T get(String aggregateRootId) {
 
-        AggregateRepository<T> repository = aggregateRepository;
+        AggregateRepository repository = aggregateRepository;
 
         if (!aggregateRoots.containsKey(aggregateRootId)) {
 

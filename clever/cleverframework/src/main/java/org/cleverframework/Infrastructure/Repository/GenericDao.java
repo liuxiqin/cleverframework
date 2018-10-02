@@ -2,10 +2,16 @@ package org.cleverframework.infrastructure.repository;
 
 import org.cleverframework.domain.AggregateRoot;
 
-/**
- * Created by cass02 on 2017/4/18.
- */
-public interface GenericDao<Model extends AggregateRoot, K> {
+import java.io.Serializable;
 
-    Model get(K id);
+/**
+ * DAO抽象
+ *
+ * @author xiqin.liu
+ */
+public interface GenericDao {
+
+    <T extends AggregateRoot, Id extends Serializable> T get(Id id);
+
+    <T extends AggregateRoot> void save(T entity);
 }
