@@ -1,11 +1,8 @@
 package org.cleverframework.messages;
 
 
-import com.rabbitmq.client.*;
-import org.cleverframework.infrastructure.serializes.BinarySerializer;
-import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
 import org.cleverframework.infrastructure.serializes.JsonSerializer;
-import org.cleverframework.messages.channels.CommunicateChannel;
+import org.cleverframework.messages.channels.CommunicateChannelFactoryPool;
 
 import java.util.List;
 
@@ -16,18 +13,21 @@ import java.util.List;
  */
 public class MessageProducerImpl implements MessageProducer {
 
-    private JsonSerializer binarySerializer;
+    private JsonSerializer jsonSerializer;
 
-    private CommunicateChannel communicateChannel;
+    private CommunicateChannelFactoryPool communicateChannelFactoryPool;
 
-    public MessageProducerImpl() {
+    public MessageProducerImpl(JsonSerializer jsonSerializer, CommunicateChannelFactoryPool communicateChannelFactoryPool) {
+
+        this.communicateChannelFactoryPool = communicateChannelFactoryPool;
+        this.jsonSerializer = jsonSerializer;
 
     }
 
     @Override
     public void send(MessageWrapper messageWrapper) {
 
-
+        communicateChannelFactoryPool.getChannel().publish(messageWrapper);
     }
 
     @Override

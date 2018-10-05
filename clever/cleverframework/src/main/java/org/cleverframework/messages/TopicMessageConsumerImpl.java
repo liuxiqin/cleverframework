@@ -13,7 +13,7 @@ import java.util.concurrent.ExecutorService;
 /**
  * TOPIC消息消费实现
  */
-public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
+public class TopicMessageConsumerImpl implements MessageConsumer, Runnable {
 
     private String topic;
 
@@ -102,15 +102,10 @@ public class  TopicMessageConsumerImpl implements MessageConsumer, Runnable {
         }
     }
 
-    public void close() throws Exception {
+    @Override
+    public void stop() {
 
-        if (channel != null && channel.isOpen()) {
-            channel.close();
-        }
-
-        if (connection != null && connection.isOpen()) {
-            connection.close();
-        }
+       
     }
 
     public void run() {

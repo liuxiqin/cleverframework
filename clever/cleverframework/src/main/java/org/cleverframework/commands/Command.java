@@ -23,4 +23,13 @@ public abstract class Command extends Message {
         return this.getMessageId();
     }
 
+    /**
+     * 路由键hashcode计算
+     *
+     * @return
+     */
+    @Override
+    public String routingKey() {
+        return this.aggregateRootId ;
+    }
 }

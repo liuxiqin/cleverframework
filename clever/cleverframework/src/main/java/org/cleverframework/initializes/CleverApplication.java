@@ -1,6 +1,5 @@
 package org.cleverframework.initializes;
 
-import org.cleverframework.infrastructure.dependency.BeanContainer;
 import org.cleverframework.infrastructure.eventsourcings.AggregateRootMemoryCache;
 import org.cleverframework.infrastructure.eventsourcings.AggregateRootMemoryCacheImpl;
 import org.cleverframework.infrastructure.eventstores.EventStore;
@@ -27,7 +26,7 @@ public class CleverApplication {
     /**
      * 框架启动入口（BEAN资源加载，消费者启动）
      */
-    public static void run() {
+    public static void run(String[] args) {
 
         CleverApplicationContext.getBeanContainer()
                 .add(SnapshotStorage.class, new MysqlSnapshotStorage())
@@ -48,7 +47,6 @@ public class CleverApplication {
      * 释放框架已加载资源
      */
     public static void release() {
-
 
     }
 

@@ -7,7 +7,7 @@ import org.cleverframework.messages.reply.MessageReplyPool;
 
 /**
  * 消息应答通过实现
- * 取出正在等待结果的MessageReply，并通知[notifys]
+ * 取出正在等待结果的MessageReply，并通知[notify]
  *
  * @Author: xiqin.liu
  * @Date: 2018/9/30 11:16

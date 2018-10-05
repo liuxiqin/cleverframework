@@ -1,9 +1,7 @@
 package org.cleverframework.messages.request;
 
+import org.cleverframework.messages.MessageProducer;
 import org.cleverframework.messages.MessageWrapper;
-import org.cleverframework.messages.channels.CommunicateChannelFactoryPool;
-import org.cleverframework.messages.reply.MessageReply;
-import org.cleverframework.messages.reply.MessageReplyPool;
 
 import java.util.concurrent.Callable;
 
@@ -17,24 +15,26 @@ public class SendAsyncMessageTask implements Callable<Boolean> {
 
     private long timeout = 3000;
 
-    private CommunicateChannelFactoryPool communicateChannelFactoryPool;
+    private MessageProducer messageProducer;
 
-    public SendAsyncMessageTask(CommunicateChannelFactoryPool communicateChannelFactoryPool, MessageWrapper messageWrapper) {
+    public SendAsyncMessageTask(MessageProducer messageProducer, MessageWrapper messageWrapper) {
 
-        this.communicateChannelFactoryPool = communicateChannelFactoryPool;
+        this.messageProducer = messageProducer;
         this.messageWrapper = messageWrapper;
         this.timeout = timeout;
     }
 
     @Override
-    public Boolean call()  {
+    public Boolean call() {
 
         try {
-            communicateChannelFactoryPool.getChannel().publish(messageWrapper);
+
+            messageProducer.send(messageWrapper);
 
             return Boolean.TRUE;
 
         } catch (Exception e) {
+
 
         }
         return Boolean.FALSE;

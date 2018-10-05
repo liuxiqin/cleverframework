@@ -1,7 +1,7 @@
 package org.cleverframework.messages.request;
 
+import org.cleverframework.messages.MessageProducer;
 import org.cleverframework.messages.MessageWrapper;
-import org.cleverframework.messages.channels.CommunicateChannelFactoryPool;
 import org.cleverframework.messages.reply.MessageReply;
 import org.cleverframework.messages.reply.MessageReplyPool;
 
@@ -17,11 +17,11 @@ public class SendMessageTask implements Callable<MessageReply> {
 
     private long timeout;
 
-    private CommunicateChannelFactoryPool communicateChannelFactoryPool;
+    private MessageProducer messageProducer;
 
-    public SendMessageTask(CommunicateChannelFactoryPool communicateChannelFactoryPool, MessageWrapper messageWrapper, long timeout) {
+    public SendMessageTask(MessageProducer messageProducer, MessageWrapper messageWrapper, long timeout) {
 
-        this.communicateChannelFactoryPool = communicateChannelFactoryPool;
+        this.messageProducer = messageProducer;
         this.messageWrapper = messageWrapper;
         this.timeout = timeout;
     }
@@ -29,7 +29,7 @@ public class SendMessageTask implements Callable<MessageReply> {
     @Override
     public MessageReply call() {
 
-        communicateChannelFactoryPool.getChannel().publish(messageWrapper);
+        messageProducer.send(messageWrapper);
 
         return MessageReplyPool.tryAddMessageReply(messageWrapper.getMessageId(), timeout);
     }

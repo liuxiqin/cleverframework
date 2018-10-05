@@ -13,6 +13,8 @@ public interface CommunicateChannelFactoryPool {
      *
      * @return
      */
-    CommunicateChannel getChannel();
+    CommunicateChannel getChannel(String topic);
+
+    void addChannel();
 
 }
