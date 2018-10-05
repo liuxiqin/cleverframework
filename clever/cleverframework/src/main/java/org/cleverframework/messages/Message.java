@@ -9,10 +9,12 @@ import java.util.Map;
 
 /**
  * 消息抽象类|[事件消息，命令消息]
+ *
+ * @author xiqin.liu
  */
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "jsonMessageType")
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "cleverMessageType")
 public abstract class Message implements Serializable {
 
     protected String messageId;

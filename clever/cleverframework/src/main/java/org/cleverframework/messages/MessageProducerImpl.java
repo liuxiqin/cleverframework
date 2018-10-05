@@ -27,7 +27,7 @@ public class MessageProducerImpl implements MessageProducer {
     @Override
     public void send(MessageWrapper messageWrapper) {
 
-        communicateChannelFactoryPool.getChannel().publish(messageWrapper);
+        communicateChannelFactoryPool.getChannel(messageWrapper.getTopic()).publish(messageWrapper);
     }
 
     @Override

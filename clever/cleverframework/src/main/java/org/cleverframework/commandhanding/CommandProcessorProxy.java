@@ -17,7 +17,7 @@ public class CommandProcessorProxy implements CommandProcessor {
     }
 
     @Override
-    public <T extends Command> void process(CommandProcessorContext context) throws Exception {
+    public <T extends Command> void process(CommandProcessorContext context) {
         commandProcessor.process(context);
     }
 }

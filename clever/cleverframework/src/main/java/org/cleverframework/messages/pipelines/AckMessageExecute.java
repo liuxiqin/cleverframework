@@ -1,6 +1,6 @@
 package org.cleverframework.messages.pipelines;
 
-import org.cleverframework.messages.MessageExecuteContext;
+import org.cleverframework.messages.MessageHandlerContext;
 
 /**
  * 消息确认机制
@@ -9,7 +9,8 @@ import org.cleverframework.messages.MessageExecuteContext;
  */
 public class AckMessageExecute implements MessageExecute {
 
-    public void execute(MessageExecuteContext context) {
+    @Override
+    public void execute(MessageHandlerContext context) {
 
     }
 }

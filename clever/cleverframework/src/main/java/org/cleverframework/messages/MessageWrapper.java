@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 /**
  * 消息封装类
+ *
+ * @author xiqin.liu
  */
 public class MessageWrapper implements Serializable {
 
@@ -22,7 +24,7 @@ public class MessageWrapper implements Serializable {
     /**
      * 消息体
      */
-    private String messageBody;
+    private Message messageBody;
 
     /**
      * 当前时间
@@ -62,11 +64,11 @@ public class MessageWrapper implements Serializable {
         this.messageId = messageId;
     }
 
-    public String getMessageBody() {
+    public Message getMessageBody() {
         return messageBody;
     }
 
-    public void setMessageBody(String messageBody) {
+    public void setMessageBody(Message messageBody) {
         this.messageBody = messageBody;
     }
 

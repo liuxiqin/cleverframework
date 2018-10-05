@@ -3,7 +3,6 @@ package org.cleverframework.commandhanding;
 import org.cleverframework.commands.Command;
 import org.cleverframework.commands.CommandProcessorContext;
 
-import javax.annotation.Resource;
 
 /**
  * 命令分发器
@@ -23,7 +22,7 @@ public class CommandDispatcher {
         this.commandProcessor = commandProcessor;
     }
 
-    public <T extends Command> void dispatch(T command) throws Exception {
+    public <T extends Command> void dispatch(T command) {
 
         CommandHandler commandHandler = commandHandlerProvider.getHandler(command.getClass().getName());
 

@@ -6,6 +6,7 @@ import org.cleverframework.common.ObjectId;
 import org.cleverframework.infrastructure.exceptions.serializer.JsonDeSerializerException;
 import org.cleverframework.infrastructure.exceptions.serializer.JsonSerializerException;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 /**
@@ -42,7 +43,7 @@ public class JacksonSerializerImpl implements JsonSerializer {
 
         } catch (Exception e) {
 
-            throw new JsonDeSerializerException(e);
+            throw new JsonDeSerializerException(json, e);
         }
     }
 
@@ -54,7 +55,7 @@ public class JacksonSerializerImpl implements JsonSerializer {
 
         } catch (Exception e) {
 
-            throw new JsonDeSerializerException(e);
+            throw new JsonDeSerializerException(json, e);
         }
     }
 
@@ -75,4 +76,14 @@ public class JacksonSerializerImpl implements JsonSerializer {
         }
     }
 
+    @Override
+    public <T> T deSerialize(byte[] bytes, Class<T> beanClass) {
+
+        try {
+            return objectMapper.readValue(bytes, beanClass);
+        } catch (IOException e) {
+
+            throw new JsonDeSerializerException(bytes, e);
+        }
+    }
 }

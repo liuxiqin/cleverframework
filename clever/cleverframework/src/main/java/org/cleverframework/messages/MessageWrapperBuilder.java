@@ -45,8 +45,8 @@ public class MessageWrapperBuilder {
         messageWrapper.setMessageName(command.getClass().getName());
         messageWrapper.setTopic(CommandTopicProvider.getTopic(command));
         messageWrapper.setRoutingKey(command.routingKey());
-        messageWrapper.setMessageBody(jsonSerializer.serialize(command));
-        messageWrapper.setBodyLength(messageWrapper.getMessageBody().length());
+        messageWrapper.setMessageBody(command);
+        messageWrapper.setBodyLength(0);
         messageWrapper.setNeedResponse(needResponse);
 
         return messageWrapper;

@@ -1,6 +1,6 @@
 package org.cleverframework.messages.pipelines;
 
-import org.cleverframework.messages.MessageExecuteContext;
+import org.cleverframework.messages.MessageHandlerContext;
 
 /**
  * 消息执行抽象
@@ -12,5 +12,5 @@ public interface MessageExecute {
      *
      * @param context
      */
-    void execute(MessageExecuteContext context);
+    void execute(MessageHandlerContext context);
 }

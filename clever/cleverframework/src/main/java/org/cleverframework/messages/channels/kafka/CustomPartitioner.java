@@ -10,6 +10,8 @@ import java.util.Map;
 
 /**
  * 自定义消息分区策略
+ *
+ * @author xiqin.liu
  */
 public class CustomPartitioner implements Partitioner {
 

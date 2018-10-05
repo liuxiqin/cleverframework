@@ -103,4 +103,9 @@ public class AggregateRoot implements Serializable {
     public void clear() {
         unCommitEvents.clear();
     }
+
+    public void increaseVersion() {
+
+        this.version = this.version + 1;
+    }
 }

@@ -5,6 +5,7 @@ import org.cleverframework.infrastructure.serializes.BinarySerializer;
 import org.cleverframework.infrastructure.serializes.BinarySerializerImpl;
 import org.cleverframework.domain.AggregateRoot;
 import org.cleverframework.events.Event;
+import org.cleverframework.messages.MessageConverter;
 
 import java.util.List;
 
@@ -14,9 +15,9 @@ import java.util.List;
 public class EventStreamFactory {
 
 
-    public static BinarySerializer binarySerializer = new BinarySerializerImpl();
+    public static MessageConverter messageConverter;
 
-    public static EventStreamRecord create(AggregateRoot aggregateRoot, String commandId)  {
+    public static EventStreamRecord create(AggregateRoot aggregateRoot, String commandId) {
 
 
         EventStreamRecord eventStream = new EventStreamRecord();
@@ -24,15 +25,16 @@ public class EventStreamFactory {
         eventStream.setVersion(aggregateRoot.getVersion());
         eventStream.setAggregateRootId(aggregateRoot.getId());
         eventStream.setCommandId(commandId);
-        eventStream.setEventBytes(binarySerializer.serialize(aggregateRoot.getUnCommitEvents()));
+        eventStream.setEventBytes(messageConverter.toBytes(aggregateRoot.getUnCommitEvents()));
 
         return eventStream;
     }
 
     public static EventStream create(List<EventStreamRecord> records) {
 
-        if (records == null || records.size() == 0)
+        if (records == null || records.size() == 0) {
             return null;
+        }
 
         try {
             EventStream eventStream = new EventStream();
@@ -43,7 +45,8 @@ public class EventStreamFactory {
                 eventStream.setAggregateRootId(record.getAggregateRootId());
                 eventStream.setVersion(record.getVersion());
 
-                List<Event> recordEvents = binarySerializer.deSerialize(record.getEventBytes());
+                //TODO:
+                List<Event> recordEvents = messageConverter.toObject(record.getEventBytes(), null);
 
                 events.addAll(recordEvents);
             }

@@ -1,11 +1,5 @@
 package org.cleverframework.commandhanding;
 
-import org.cleverframework.infrastructure.eventstores.*;
-import org.cleverframework.infrastructure.repository.AggregateRepository;
-import org.cleverframework.infrastructure.snapshots.MysqlSnapshotStorage;
-import org.cleverframework.infrastructure.snapshots.Snapshot;
-import org.cleverframework.infrastructure.snapshots.SnapshotFactory;
-import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
 import org.cleverframework.commands.Command;
 import org.cleverframework.commands.CommandContext;
 import org.cleverframework.commands.CommandContextImpl;
@@ -13,13 +7,18 @@ import org.cleverframework.commands.CommandProcessorContext;
 import org.cleverframework.domain.AggregateRoot;
 import org.cleverframework.events.Event;
 import org.cleverframework.events.EventPublisher;
-import org.cleverframework.events.EventPublisherImpl;
+import org.cleverframework.infrastructure.eventstores.EventStore;
+import org.cleverframework.infrastructure.eventstores.EventStreamFactory;
+import org.cleverframework.infrastructure.eventstores.EventStreamRecord;
+import org.cleverframework.infrastructure.repository.AggregateRepository;
+import org.cleverframework.infrastructure.snapshots.SnapshotFactory;
+import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
 
 import java.util.List;
 import java.util.Map;
 
 /**
- * 命令处理
+ * 命令处理实现
  *
  * @author xiqin.liu
  */
@@ -60,6 +59,7 @@ public class CommandProcessorImpl implements CommandProcessor {
 
         CommandContext commandContext = new CommandContextImpl(aggregateRepository);
 
+        //命令处理
         context.getCommandHandler().handle(commandContext, context.getCommand());
 
         Map<String, AggregateRoot> aggregateRoots = commandContext.getAggregateRoots();
@@ -72,21 +72,25 @@ public class CommandProcessorImpl implements CommandProcessor {
             throw new RuntimeException("The changed aggregateRoots just only one.");
         }
 
-        //one CommandHandle just  change only one AggregateRoot
         //一个命令处理仅仅只能修改一个聚合根
         AggregateRoot changedAggregateRoot = getChangedAggregateRoot(aggregateRoots);
+
+        changedAggregateRoot.increaseVersion();
 
         List<Event> unCommitEvents = changedAggregateRoot.getUnCommitEvents();
 
         EventStreamRecord eventStreamRecord = EventStreamFactory.create(changedAggregateRoot, context.getCommand().getCommandId());
 
+        //追加事件流
         eventStore.appendEventsToStream(eventStreamRecord);
 
+        //快照存储
         if (changedAggregateRoot.getVersion() % 3 == 0) {
-            Snapshot snapshot = SnapshotFactory.create(changedAggregateRoot);
-            snapshotStorage.save(snapshot);
+
+            snapshotStorage.save(SnapshotFactory.create(changedAggregateRoot));
         }
 
+        //发送事件(普通事件与领域事件)
         eventPublisher.publish(unCommitEvents);
 
         changedAggregateRoot.clear();
