@@ -32,17 +32,30 @@ public class MessageDispatcherImpl implements MessageDispatcher {
         //命令处理
         if (context.getMessage() instanceof Command) {
 
-            commandDispatcher.dispatch((Command) context.getMessage());
+            RemoteEndPoint remoteEndPoint = null;
+
+            commandDispatcher.dispatch((Command) context.getMessage(), get(context.getMessageWrapper()), context.getMessageWrapper().getNeedResponse());
         }
 
         /**
          * 事件处理
          */
         if (context.getMessage() instanceof Event) {
-            eventProcessor.process(new EventProcessorContext((Event) context.getMessage()));
+            eventProcessor.execute(new EventProcessorContext((Event) context.getMessage()));
         }
 
         return null;
+    }
+
+    /**
+     * 获取远程目标地址
+     *
+     * @param messageWrapper
+     * @return
+     */
+    private RemoteEndPoint get(MessageWrapper messageWrapper) {
+
+        return (RemoteEndPoint) messageWrapper.getAttributes().getOrDefault(RemoteEndPoint.RemoteEndPoint_KEY, null);
 
     }
 }

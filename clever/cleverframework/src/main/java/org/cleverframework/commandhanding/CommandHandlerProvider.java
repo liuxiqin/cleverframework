@@ -24,7 +24,7 @@ public class CommandHandlerProvider {
         commandHandlers.put(commandName, commandHandler);
     }
 
-    public CommandHandler<?> getHandler(String commandName)  {
+    public CommandHandler<?> getHandler(String commandName) {
 
         if (!commandHandlers.containsKey(commandName)) {
             throw new CommandHandlerNotFoundException(commandName);

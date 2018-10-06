@@ -1,6 +1,7 @@
 package org.cleverframework.commands;
 
 import org.cleverframework.commandhanding.CommandHandler;
+import org.cleverframework.messages.RemoteEndPoint;
 
 /**
  * 命令处理上下文
@@ -10,11 +11,30 @@ import org.cleverframework.commandhanding.CommandHandler;
  */
 public class CommandProcessorContext<T extends Command> {
 
+    /**
+     * 命令处理器
+     */
     private CommandHandler<T> commandHandler;
 
+    /**
+     * Command 命令
+     */
     private Command command;
 
+    /**
+     * Command 处理结果
+     */
     private CommandExecuteResult result;
+
+    /**
+     * Command处理结果应答目标地址
+     */
+    private RemoteEndPoint remoteEndPoint;
+
+    /**
+     * 是否需要应答Command处理结果
+     */
+    private boolean needToReply;
 
     public CommandProcessorContext(CommandHandler<T> commandHandler, Command command) {
 
@@ -44,5 +64,21 @@ public class CommandProcessorContext<T extends Command> {
 
     public void setResult(CommandExecuteResult result) {
         this.result = result;
+    }
+
+    public RemoteEndPoint getRemoteEndPoint() {
+        return remoteEndPoint;
+    }
+
+    public void setRemoteEndPoint(RemoteEndPoint remoteEndPoint) {
+        this.remoteEndPoint = remoteEndPoint;
+    }
+
+    public boolean isNeedToReply() {
+        return needToReply;
+    }
+
+    public void setNeedToReply(boolean needToReply) {
+        this.needToReply = needToReply;
     }
 }

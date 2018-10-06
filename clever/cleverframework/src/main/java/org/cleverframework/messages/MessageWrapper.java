@@ -1,6 +1,8 @@
 package org.cleverframework.messages;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 消息封装类
@@ -41,7 +43,15 @@ public class MessageWrapper implements Serializable {
      */
     private String routingKey;
 
+    /**
+     * 是否需要应答
+     */
     private Boolean needResponse;
+
+    /**
+     * 扩展属性
+     */
+    private Map<String, Object> attributes = new HashMap<>();
 
     /**
      * 消息TOPIC
@@ -111,6 +121,24 @@ public class MessageWrapper implements Serializable {
 
     public void setNeedResponse(Boolean needResponse) {
         this.needResponse = needResponse;
+    }
+
+    public Map<String, Object> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(Map<String, Object> attributes) {
+        this.attributes = attributes;
+    }
+
+    public MessageWrapper addAttribute(String attributeId, Object attribute) {
+
+        if (!attributes.containsKey(attributeId)) {
+
+            attributes.put(attributeId, attribute);
+        }
+
+        return this;
     }
 
     @Override

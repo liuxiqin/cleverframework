@@ -5,14 +5,6 @@ package org.cleverframework.infrastructure.eventstores;
  */
 public class MysqlEventStoreImpl implements EventStore {
 
-    public MysqlEventStoreImpl() {
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (Exception e) {
-
-        }
-
-    }
 
     @Override
     public void appendEventsToStream(EventStreamRecord eventStream) {

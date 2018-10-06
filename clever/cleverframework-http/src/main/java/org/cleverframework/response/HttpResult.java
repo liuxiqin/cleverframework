@@ -13,11 +13,6 @@ public class HttpResult {
 
     private String message;
 
-
-    public HttpResult() {
-
-    }
-
     public HttpResult(int httpCode, String message) {
 
         this.httpCode = httpCode;
@@ -44,4 +39,5 @@ public class HttpResult {
     public void setMessage(String message) {
         this.message = message;
     }
+
 }

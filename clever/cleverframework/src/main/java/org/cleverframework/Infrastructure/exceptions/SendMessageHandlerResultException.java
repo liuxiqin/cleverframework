@@ -1,6 +1,7 @@
 package org.cleverframework.infrastructure.exceptions;
 
-import org.cleverframework.messages.MessageResultContext;
+import org.cleverframework.messages.MessageHandlerResult;
+import org.cleverframework.messages.RemoteEndPoint;
 
 /**
  * 发送消息处理结果到目标机器上
@@ -10,8 +11,7 @@ import org.cleverframework.messages.MessageResultContext;
  */
 public class SendMessageHandlerResultException extends RuntimeException {
 
-    public SendMessageHandlerResultException(MessageResultContext context) {
-
+    public SendMessageHandlerResultException(MessageHandlerResult context, RemoteEndPoint endPoint) {
         super("发送消息处理结果到目标地址失败, 目标地址数据:" + context.toString());
     }
 }

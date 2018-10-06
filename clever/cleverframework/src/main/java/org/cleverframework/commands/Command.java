@@ -9,8 +9,11 @@ import org.cleverframework.messages.Message;
  */
 public abstract class Command extends Message {
 
+    /**
+     * 命令变更的对应的聚合根ID
+     */
     private String aggregateRootId;
-
+ 
     public Command(String aggregateRootId) {
         this.aggregateRootId = aggregateRootId;
     }
@@ -30,6 +33,6 @@ public abstract class Command extends Message {
      */
     @Override
     public String routingKey() {
-        return this.aggregateRootId ;
+        return this.aggregateRootId;
     }
 }

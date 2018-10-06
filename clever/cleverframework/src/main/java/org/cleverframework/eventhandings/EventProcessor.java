@@ -6,5 +6,10 @@ package org.cleverframework.eventhandings;
  */
 public interface EventProcessor {
 
-    void process(EventProcessorContext context);
+    /**
+     * 事件调度处理
+     *
+     * @param context
+     */
+    void execute(EventProcessorContext context);
 }

@@ -41,15 +41,29 @@ public class MessageWrapperBuilder {
         MessageWrapper messageWrapper = new MessageWrapper();
 
         messageWrapper.setTimeStamp(System.currentTimeMillis());
-        messageWrapper.setMessageId(ObjectId.getNextId());
+        messageWrapper.setMessageId(ObjectId.getId());
         messageWrapper.setMessageName(command.getClass().getName());
         messageWrapper.setTopic(CommandTopicProvider.getTopic(command));
         messageWrapper.setRoutingKey(command.routingKey());
         messageWrapper.setMessageBody(command);
         messageWrapper.setBodyLength(0);
         messageWrapper.setNeedResponse(needResponse);
+        messageWrapper.addAttribute(RemoteEndPoint.RemoteEndPoint_KEY, create());
 
         return messageWrapper;
+    }
+
+    private RemoteEndPoint create() {
+
+
+        RemoteEndPoint endPoint = new RemoteEndPoint();
+
+        endPoint.setIpAddress("127.0.0.1");
+        endPoint.setPort(8081);
+        endPoint.setProtocolType(ProtocolType.HTTP);
+        endPoint.setServiceName("test-name");
+
+        return endPoint;
     }
 
 }

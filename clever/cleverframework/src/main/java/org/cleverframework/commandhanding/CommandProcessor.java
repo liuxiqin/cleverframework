@@ -10,5 +10,11 @@ import org.cleverframework.commands.CommandProcessorContext;
  */
 public interface CommandProcessor {
 
-    <T extends Command> void process(CommandProcessorContext context);
+    /**
+     * 命令处理方法
+     *
+     * @param context 命令处理上下文
+     * @param <T>     Command
+     */
+    <T extends Command> void execute(CommandProcessorContext context);
 }

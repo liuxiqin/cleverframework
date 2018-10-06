@@ -13,6 +13,7 @@ import org.cleverframework.infrastructure.eventstores.EventStreamRecord;
 import org.cleverframework.infrastructure.repository.AggregateRepository;
 import org.cleverframework.infrastructure.snapshots.SnapshotFactory;
 import org.cleverframework.infrastructure.snapshots.SnapshotStorage;
+import org.cleverframework.messages.MessageResultSendChannelProxy;
 
 import java.util.List;
 import java.util.Map;
@@ -32,16 +33,20 @@ public class CommandProcessorImpl implements CommandProcessor {
 
     private AggregateRepository aggregateRepository;
 
+    private MessageResultSendChannelProxy messageResultSendChannelProxy;
+
     public CommandProcessorImpl(
             EventPublisher eventPublisher,
             SnapshotStorage snapshotStorage,
             EventStore eventStore,
-            AggregateRepository aggregateRepository) {
+            AggregateRepository aggregateRepository,
+            MessageResultSendChannelProxy messageResultSendChannelProxy) {
 
         this.eventPublisher = eventPublisher;
         this.snapshotStorage = snapshotStorage;
         this.eventStore = eventStore;
         this.aggregateRepository = aggregateRepository;
+        this.messageResultSendChannelProxy = messageResultSendChannelProxy;
     }
 
     private AggregateRoot getChangedAggregateRoot(Map<String, AggregateRoot> aggregateRoots) {
@@ -55,7 +60,7 @@ public class CommandProcessorImpl implements CommandProcessor {
     }
 
     @Override
-    public <T extends Command> void process(CommandProcessorContext context) {
+    public <T extends Command> void execute(CommandProcessorContext context) {
 
         CommandContext commandContext = new CommandContextImpl(aggregateRepository);
 
@@ -95,5 +100,6 @@ public class CommandProcessorImpl implements CommandProcessor {
 
         changedAggregateRoot.clear();
 
+        messageResultSendChannelProxy.send(null, context.getRemoteEndPoint());
     }
 }

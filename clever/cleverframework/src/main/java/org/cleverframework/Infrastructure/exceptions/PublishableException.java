@@ -6,6 +6,8 @@ import java.util.Date;
 
 /**
  * 可发布的异常类抽象定义
+ *
+ * @xiqin.liu
  */
 public abstract class PublishableException extends Throwable {
 
@@ -16,7 +18,7 @@ public abstract class PublishableException extends Throwable {
     private String messageId;
 
     public PublishableException() {
-        id = ObjectId.getNextId();
+        id = ObjectId.getId();
         timeStamp = new Date();
     }
 }

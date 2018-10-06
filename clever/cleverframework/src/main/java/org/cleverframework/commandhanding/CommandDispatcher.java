@@ -2,6 +2,7 @@ package org.cleverframework.commandhanding;
 
 import org.cleverframework.commands.Command;
 import org.cleverframework.commands.CommandProcessorContext;
+import org.cleverframework.messages.RemoteEndPoint;
 
 
 /**
@@ -22,12 +23,15 @@ public class CommandDispatcher {
         this.commandProcessor = commandProcessor;
     }
 
-    public <T extends Command> void dispatch(T command) {
+    public <T extends Command> void dispatch(T command, RemoteEndPoint endPoint, boolean needToReply) {
 
         CommandHandler commandHandler = commandHandlerProvider.getHandler(command.getClass().getName());
 
         CommandProcessorContext context = new CommandProcessorContext(commandHandler, command);
 
-        commandProcessor.process(context);
+        context.setNeedToReply(needToReply);
+        context.setRemoteEndPoint(endPoint);
+
+        commandProcessor.execute(context);
     }
 }

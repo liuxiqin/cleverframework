@@ -21,11 +21,9 @@ public abstract class Message implements Serializable {
 
     private long timestamp;
 
-    private Map<String, Object> attributes;
-
     public Message() {
 
-        messageId = ObjectId.getNextId();
+        messageId = ObjectId.getId();
         timestamp = System.currentTimeMillis();
     }
 

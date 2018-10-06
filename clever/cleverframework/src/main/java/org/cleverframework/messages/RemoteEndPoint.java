@@ -8,10 +8,12 @@ package org.cleverframework.messages;
  */
 public class RemoteEndPoint {
 
+    public static final String RemoteEndPoint_KEY = "RemoteEndPoint";
+
     /**
      * IP地址
      */
-    private String ipaddress;
+    private String ipAddress;
 
     /**
      * 端口
@@ -23,13 +25,18 @@ public class RemoteEndPoint {
      */
     private String serviceName;
 
+    /**
+     * 协议类型
+     */
+    private ProtocolType protocolType;
 
-    public String getIpaddress() {
-        return ipaddress;
+
+    public String getIpAddress() {
+        return ipAddress;
     }
 
-    public void setIpaddress(String ipaddress) {
-        this.ipaddress = ipaddress;
+    public void setIpAddress(String ipAddress) {
+        this.ipAddress = ipAddress;
     }
 
     public int getPort() {
@@ -46,5 +53,13 @@ public class RemoteEndPoint {
 
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
+    }
+
+    public ProtocolType getProtocolType() {
+        return protocolType;
+    }
+
+    public void setProtocolType(ProtocolType protocolType) {
+        this.protocolType = protocolType;
     }
 }
